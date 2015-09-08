@@ -1,6 +1,7 @@
 # Dynamic Web Applications
 ## Fall 2015 Notes
 
+Short URL: <http://notes.dwa15.com>
 
 ## Printing
 Use http://gitprint.com if you want to create .pdfs or printable versions of the notes.
