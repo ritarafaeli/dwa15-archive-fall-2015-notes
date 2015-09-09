@@ -1,3 +1,6 @@
+
+
+
 In this course we're using what's commonly referred to as the LAMP stack:
 
 + The __L__ stands for __Linux__ - which is a common OS used for web servers. Your live servers will run on some flavor of Linux, but your local servers will actually run on Mac or Windows (more on that later).
