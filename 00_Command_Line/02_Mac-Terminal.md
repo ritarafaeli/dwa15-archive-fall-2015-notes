@@ -17,7 +17,7 @@ Our first configurations will be made via the file `~/.bashrc`.
 
 We're going to provide you with a template `.bashrc` file you can start with and customize as needed.
 
-Visit [bashrc](https://raw.githubusercontent.com/susanBuck/notes/master/07_Command_Line/999_bashrc) and copy its contents.
+[Go here to copy the .bashrc template](https://gist.github.com/susanBuck/ee3a0a53d72198c1a244) (Click the *Raw* button to get just the plain text contents for easy copying).
 
 Next, open `~/.bashrc` with *nano*, a command line text editor. That's done with the command `nano` which we'll prefix with `sudo` in order to open the file as an administrator:
 
