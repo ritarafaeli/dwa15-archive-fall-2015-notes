@@ -1,9 +1,9 @@
 ## DigitalOcean
 
-At this point, you should have the following set up:
+So far we have:
 
-1. A local server where you can run and test code for projects
-2. A remote repository at Github.com to store your code, making it easy to share with collaborators (classmates, TAs, etc.)
+1. A local server
+2. A remote repository at Github.com
 
 The third and final piece of the puzzle we need to complete your workflow is a live server where you can publish your work online so that it's available for the world to see.
 
@@ -91,7 +91,7 @@ From your local command line, SSH into your DigitalOcean droplet using the usern
 $ ssh root@your-digital-ocean-ip-address
 ```
 
-When you first connect, you'll see the following message indicating it's a connection your computer does not recognize. Type `yes` and hit *Enter* to confirm the connection and you shouldn't see this message again.
+When you first connect, you'll see the following message indicating it's a connection your computer does not recognize. Type `yes` and hit *Enter* to confirm the connection.
 
 ```bash
 The authenticity of host '104.236.13.65 (104.236.13.65)' can't be established.
@@ -187,7 +187,16 @@ Copy the contents of `id_rsa.pub`
 
 Add this new key via [Github.com SSH settings](https://github.com/settings/ssh).
 
+Finally, test that the SSH keys work by running this command:
 
+```bash
+$ ssh -T git@github.com
+```
+
+If all went well, you should see a message like this:
+```
+Hi susanBuck! You've successfully authenticated, but GitHub does not provide shell access.
+```
 
 
 ## Clone a repository
