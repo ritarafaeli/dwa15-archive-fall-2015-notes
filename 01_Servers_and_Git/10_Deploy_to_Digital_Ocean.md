@@ -203,7 +203,7 @@ Hi susanBuck! You've successfully authenticated, but GitHub does not provide she
 
 With your SSH key setup and Git installed, let's now look at how to clone your `hello-world` repository to your DigitalOcean Droplet.
 
-In the `/var/www/html/` directory on DigitalOcean, run this command:
+In the `/var/www/html/` directory on DigitalOcean, run this command, replacing the git URL for your hello-world repository:
 
 ```bash
 $ cd /var/www/html/
