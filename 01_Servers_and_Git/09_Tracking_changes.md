@@ -90,6 +90,32 @@ Check your repository in github.com to make sure the commit is there.
 
 
 
+## Recap
+
+1. Make changes on a local copy of your code
+2. Save changes
+3. Test your work via your local server, is everything good?
+
+Steps 1,2,3 repeat over and over until the feature or change you're working on is ready.
+When everything is set and you're ready to go live...
+
+4. __Stage__ individual files that have changed
+5. __Commit__ everything you staged
+6. __Push__ your commits to Github
+
+
+
+
+## View hello-world on your local server
+
+Before deploying this hello-world example to a liver server in the next steps, make sure you can view it on your local server:
+
+1. Change your local server's document root to point to ``/path/to/your/htdocs/hello-world/`
+2. Restart your local server
+3. Visit http://localhost and make sure you see the `index.php` file
+
+
+
 
 ## Tips
 
