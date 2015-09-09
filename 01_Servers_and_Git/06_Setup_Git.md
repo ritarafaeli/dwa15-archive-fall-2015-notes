@@ -1,4 +1,4 @@
-## Git via Command Line
+## Git via the command line
 Git can be operated via either dedicated, GUI applications or via command line.
 
 We're going to use the command line because this gives you the most powerful and consistent access to git.
