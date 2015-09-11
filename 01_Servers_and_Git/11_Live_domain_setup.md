@@ -21,7 +21,9 @@ Give the above settings a few minutes to take effect, then test out your domain.
 If you don't yet see the above, try the following:
 
 1. Clear your browser cache.
-2. Do a [DNS Cache Flush](http://docs.cpanel.net/twiki/bin/view/AllDocumentation/ClearingBrowserCache).
+2. Clear your DNS cache
+    + [Mac instructions](https://support.apple.com/en-us/HT202516)
+    + Windows/Cmder run this command: `ipconfig /flushdns`.
 
 Try again. Still not loading?
 
