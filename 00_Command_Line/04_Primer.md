@@ -106,25 +106,6 @@ And now remove `practice`:
 Note the addition of the `r` flag, which is needed for recursively removing directories and their contents.
 
 
-## Installing git
-
-Git is a command line tool we'll use in this course, so now's a good time to make sure you have it installed.
-
-To see if Git is installed, run this command:
-
-    $ git
-
-If git is installed, you'll see a bunch of instructions and you're good to go.
-
-Cmder comes with Git installed, so Windows users are all set.
-
-Mac users, however, may see *Command not found* when they try to run `git`.
-
-To fix this, head over to <https://git-scm.com/downloads> and click the link to download Git for Mac.
-
-Once it's installed, run the installer, then close and re-open Terminal (this step is important!).
-
-Try running `git` again and you should be all set.
 
 
 ## In conclusion...
@@ -132,3 +113,5 @@ Try running `git` again and you should be all set.
 There's lots more you can do in CL besides working with files and directories. The above exercise was just to get you familiar with working with commands and some basic directory navigation.
 
 See [Common Commands](https://github.com/susanBuck/notes/blob/master/07_Command_Line/05_Common-commands.md) for a quick cheat sheet on all the commands we used above.
+
+<!-- https://www.digitalocean.com/community/tutorials/basic-linux-navigation-and-file-management -->
