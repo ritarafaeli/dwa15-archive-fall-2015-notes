@@ -84,7 +84,7 @@ That's it for setting up your remote repository. In the next note set, we'll sta
 
 * To see a list of all current remotes use this command: `git remote -v`.
 
-* To see all your git configurations use this command: `git config -list`.
+* To see all your git configurations use this command: `git config --list`.
 
 * You can tell if a directory is set up as a git repository if it contains a hidden directory called `.git`:
 
