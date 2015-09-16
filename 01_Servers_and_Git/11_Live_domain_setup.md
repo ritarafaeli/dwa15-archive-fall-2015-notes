@@ -49,7 +49,7 @@ Given that, navigate to `/etc/apache2/sites-enabled/` and open `000-default.conf
 
 (If need a refresher on editing files via nano, [go here](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/00_Command_Line/06_Nano.md).)
 
-At the *bottom* of `000-default.conf`, add this VirtualHost block:
+At the *bottom* of `000-default.conf`, paste in this VirtualHost block:
 
 ```
 <VirtualHost *:80>
@@ -61,25 +61,27 @@ At the *bottom* of `000-default.conf`, add this VirtualHost block:
 </VirtualHost>
 ```
 
+In plain english, the above VirtualHost block says: *when traffic comes in via `helloworld.dwa15-practice.biz`, point to the `/var/www/html/hello-world` directory*.
+
 Be sure to change the `ServerName` value to match *your* subdomain. In this example, it's set to `helloworld.dwa15-practice.biz` but you'll need to change it to match your domain.
 
-Also, if necessary, adjust the `DocumentRoot` and `Directory` to point to the location of your `hello-world` directory.
+Also change the `DocumentRoot` and `Directory` path to match the path to your helloworld directory, if it's different from our example. Note in our case, there's a small difference in that the subdomain was created *without* a hyphen (`helloworld)`, but the project directory was created *with* a hyphen (`hello-world`).
 
-In plain english, the above configuration says: *when traffic comes in via `helloworld.dwa15-practice.biz`, point to the `/var/www/html/hello-world` directory*.
-
-When you're done, save your changes to `000-defualt.conf`.
+When you're done editing the new VirtualHost block, save your changes to `000-default.conf`.
 
 (If for some reason you make a mistake in `000-default.conf`, [here's a copy of the original](https://gist.github.com/susanBuck/790ea5a0d1ad7d02e586).)
 
-To make your VirtualHost changes take effect, in DigitalOcean while looking at your Droplet, go to the *Power* section and find the button to **Power Cycle**
+To make your VirtualHost changes take effect, we want to restart Apache with this command:
 
-<img src='http://making-the-internet.s3.amazonaws.com/vc-do-power-cycle@2x.png' class='' style='max-width:968px; width:100%' alt='Digital Ocean Power Cycle'>
+```bash
+$ service apache2 restart
+```
 
 Once the restart is complete, test out your subdomain `helloworld.yourdomain.com`.
 
 <img src='http://making-the-internet.s3.amazonaws.com/version-control-subdomain-good@2x.png' class='' style='max-width:588px; width:75%' alt=''>
 
-Keep these notes handy for when you set up projects, because each project should have it's own subdomain:
+Keep these notes handy for when you set up projects, because each project should have its own subdomain:
 
 + `http://p1.yourdomain.com`
 + `http://p2.yourdomain.com`
