@@ -11,6 +11,11 @@
 Example:
 
 ```php
+<?php
+error_reporting(E_ALL);       # Report Errors, Warnings, and Notices
+ini_set('display_errors', 1); # Display errors on page (instead of a log file)
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +33,8 @@ Example:
 	$dime_value    = .10;
 	$quarter_value = .25;
 
+    echo $foobar;
+
 	/*
 	Define 4 more variables, which will each represent
 	how many of each coin is in the bank.
@@ -40,6 +47,8 @@ Example:
 	# Add up how much money is in the piggy bank
 	$total = ($pennies * $penny_value) + ($nickles * $nickle_value) + ($dimes * $dime_value) + ($quarters * $quarter_value);
 
+    # Prepend a dollar sign
+    # $total = "$".$total;
 	?>
 
 </head>
@@ -49,7 +58,7 @@ Example:
 	<img src='http://making-the-internet.s3.amazonaws.com/php-phpiggy-bank.png' alt='PHPiggy Bank Logo'>
 
 	<p>
-	   You have $<?php echo $total; ?> in your bank.
+	   You have <?php echo $total; ?> in your bank.
 	</p>
 
 </body>
