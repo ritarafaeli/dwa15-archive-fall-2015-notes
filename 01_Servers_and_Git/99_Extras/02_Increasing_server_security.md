@@ -7,6 +7,7 @@ Here are the steps we will cover:
 2. Grant this new user administrative privileges.
 3. Disable SSH access from the `root` user.
 4. Cover how to run commands as an administrator as your new user.
+5. Install fail2ban to block repeated, failed, login attempts.
 
 
 ## Create a new user
@@ -281,16 +282,6 @@ You've now put a fair amount of work in to configuring your Droplet. Given that,
 
 
 ## Tips
-
-### auth.log
-If you want to see a history of authorization attempts made on your server, view the contents of `auth.log`:
-
-```bash
-$ sudo cat /var/log/auth.log
-```
-
-You can often see traces of malicious login attempts in this file.
-
 
 ### whoami
 The `whoami` command can be used now (or anytime) to tell you who you're logged in as. This can be useful if you're switching between root and your new user
