@@ -244,8 +244,7 @@ Then, go to your Droplet settings on DigitalOcean.com, and follow the instructio
 
 ## Tips
 
-__auth.log__
-
+### auth.log
 If you want to see a history of authorization attempts made on your server, view the contents of `auth.log`:
 
 ```bash
@@ -255,13 +254,11 @@ $ sudo cat /var/log/auth.log
 You can often see traces of malicious login attempts in this file.
 
 
-__whoami__
-
+### whoami
 The `whoami` command can be used now (or anytime) to tell you who you're logged in as. This can be useful if you're switching between root and your new user
 
 
-__passwd__
-
+### passwd
 To update your user password, use the `passwd` command.
 
 __What users exist?__
@@ -269,6 +266,7 @@ __What users exist?__
 To see what users exist on your server, run `cat /etc/passwd`
 
 Note that in addition to the new user you created above, and `root`, there are many other default users on your server. These users do not have full administrator privileges like you and `root` do.
+
 
 ## Reference:
 + [How To Add and Delete Users on an Ubuntu 14.04 VPS](https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps)
