@@ -228,18 +228,56 @@ It's not, and the reason is because hackers target `root`. They know many, many 
 By using a non-default username, you're greatly decreasing the chances a hacker will brute force enter your server.
 
 
-## Take a Snapshot of your Current Configuration
-You've now put a fair amount of work in to configuring your Droplet. Given that, you should take advantage of DigitalOcean's *Snapshot* feature which will allow you to save a copy of your current configurations, to be used as a starting point for new Droplets. This backup can be useful *if* your Droplet does get compromised.
+## Ban failed login attempts
 
-Start but shutting down your server:
+There's a file on your server, `/var/log/auth.log`, which logs authorization requests on your server.
+
+Take a look at its contents:
 
 ```bash
-$ sudo poweroff
+$ sudo cat /var/log/auth.log
 ```
 
-Then, go to your Droplet settings on DigitalOcean.com, and follow the instructions under the *Snapshot* page.
+If you look at this file that's been running on a server for even a short time, you'd be amazed by how many outside login attempts are being thrown at your server by malicious hackers you don't know.
 
-<img src='http://making-the-internet.s3.amazonaws.com/vc-do-take-snapshot@2x.png' style='max-width:100%; width:100px' alt='Snapshotting your Droplet in DigitalOcean'>
+You'll likely see lots of login attempts for `root`, and other random user names as well. If you look up the IP address for these login attempts, you'll also see they're coming from all over the world.
+
+By disabling `root` access and using SSH keys, we've reduced the chances these malicious login attempts will work, however, we can take it one step further by banning the IP addresses of machines that have repeated, failed, login attempts.
+
+This is done using a software module called *Fail2Ban*. DigitalOcean has a [full write up on how to use Fail2Ban](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04), but below are the express instructions.
+
+Tell apt-get to get the latest updates:
+```bash
+$ sudo apt-get update
+```
+
+Install fail2ban:
+```bash
+$ sudo apt-get install fail2ban
+```
+
+Make a copy of the default configs so you can make any needed updates:
+```bash
+$ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+````
+
+Restart fail2ban:
+```bash
+$ sudo service fail2ban restart
+```
+
+Note that with fail2ban implemented, you do stand the chance of accidentally banning yourself from your own server if you have too many failed login attempts.
+
+The default threshold for getting banned is 3 failed login attempts.
+
+If that happens, you will not be able to login from your banned IP address for the default time of 1 hour.
+
+Note that these default settings can all be adjusted in your `/etc/fail2ban/jail.local` config file. In that file, you can also &ldquo;whitelist&rdquo; your IP address so it will not get banned. If your network provider uses dynamic IPs, however, this change will not be permanent.
+
+
+
+## Take a Snapshot of your Current Configuration
+You've now put a fair amount of work in to configuring your Droplet. Given that, you should take advantage of [DigitalOcean's *Snapshot* feature](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/99_Extras/03_Digital_Ocean_Snapshots.md).
 
 
 ## Tips
@@ -261,8 +299,8 @@ The `whoami` command can be used now (or anytime) to tell you who you're logged 
 ### passwd
 To update your user password, use the `passwd` command.
 
-__What users exist?__
 
+### What users exist?
 To see what users exist on your server, run `cat /etc/passwd`
 
 Note that in addition to the new user you created above, and `root`, there are many other default users on your server. These users do not have full administrator privileges like you and `root` do.
