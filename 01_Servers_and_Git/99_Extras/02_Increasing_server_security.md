@@ -187,8 +187,9 @@ So, to open `sshd_config` with admin privileges, run this command:
 ```
 $ sudo nano /etc/ssh/sshd_config
 ```
+You will be prompted to enter the password for your user.
 
-In the file, look for the line `PermitRootLogin yes` and toggle `yes` to `no`.
+Once the file is opened, look for the line `PermitRootLogin yes` and toggle `yes` to `no`.
 
 When done, save and exit (`ctrl` + `x`, then `y`, then *Enter*).
 
@@ -198,7 +199,9 @@ To make this change take effect, run the following command to restart your SSH s
 $ sudo service ssh restart
 ```
 
-(Note how that command was again prefixed with `sudo` since restarting SSH is something only an administrator can do).
+Note how that command was again prefixed with `sudo` since restarting SSH is something only an administrator can do.
+
+
 
 
 
@@ -239,13 +242,12 @@ Then, go to your Droplet settings on DigitalOcean.com, and follow the instructio
 
 
 ## Tips
+__auth.log__
 If you want to see a history of authorization attempts made on your server, view the contents of `auth.log`:
 
 ```bash
 $ sudo cat /var/log/auth.log
 ```
-
-It's not uncommon to open that file and see lots of root login attempts; those are the hackers trying to get into your account!
 
 
 ## Reference:

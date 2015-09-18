@@ -44,7 +44,7 @@ That being said, here's what you should do to get back on track...
 ## Create a new droplet
 Start by creating a new Droplet.
 
-As a reminder on what settings you need for the Droplet, [here's the flowchart](http://making-the-internet.s3.amazonaws.com/vc-digital-ocean-new-droplet@2x.png) taken from the notes, [Deploy to Digital Ocean](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/10_Deploy_to_Digital_Ocean.md#new-droplet).
+As a reminder on what settings you need for the Droplet, [here's the flowchart](http://making-the-internet.s3.amazonaws.com/vc-digital-ocean-new-droplet.png) taken from the notes, [Deploy to Digital Ocean](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/10_Deploy_to_Digital_Ocean.md#new-droplet).
 
 Don't forget to choose your existing SSH key stored on DigitalOcean when creating this new Droplet.
 
@@ -54,9 +54,9 @@ Once your Droplet is created, note the IP address, and then log in via SSH to co
 $ ssh root@your.new.ip.address
 ```
 
-__If you got in, your next steps is to proceed to read the instructions on [Server Hardening] which will take you through the procedures of creating a more secure server setup.__
+__If you got in, your next steps is to proceed to read the instructions on [Increasing server security](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/99_Extras/Increasing_server_security.md) which will take you through the procedures of creating a more secure server setup.__
 
-After you finish those instructions, come back here for the next step.
+After you finish those instructions, come back here for the next steps.
 
 
 ## Rebuilding your data
@@ -88,9 +88,9 @@ Outputs a public key that looks something like this:
 ssh-rsa [LONG STRING OF RANDOM CHARACTERS] your@email.com
 ```
 
-Copy the public key, and go to Github.com -> *Settings* -> *SSH Keys* -> *Add SSH Key*.
+Copy the public key, and go to Github.com -> *Settings* -> *SSH Keys* -> *Add SSH Key*. Paste in the key, give it a name and save it.
 
-Confirm the SSH key works with this command:
+Confirm the SSH key works by running this command from your Droplet:
 
 ```bash
 ssh -T git@github.com
@@ -106,10 +106,12 @@ $ cd /var/www/html
 
 Then, clone each project you've created so far. For example, to clone p1:
 ```bash
-$ git clone git@github.com:susanBuck/p1.git
+$ git clone git@github.com:yourUsername/p1.git
 ```
 
-The above is enough to rebuild projects p1 and p2.
+Reminder: You can get the SSH clone url for any repository by looking at the bottom right on your repository homepage [screenshot](http://making-the-internet.s3.amazonaws.com/vc-ssh-clone-url.png).
+
+Simply cloning your projects is enough to get p1 and p2 working again.
 
 For p3 and p4 (if you're there yet), you'll need to `cd` into those directories and run through the following steps:
 
@@ -155,7 +157,15 @@ Save and exit.
 Restart apache so your new VirtualHost settings will take effect:
 
 ```bash
-$ service apache2 restart
+$ sudo service apache2 restart
 ```
 
 Test out your subdomains. If they're not working, yet, revisit the section on [DNS cache](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/11_Live_domain_setup.md#dns-cache) in the original notes.
+
+
+## Conclusion
+Having your server compromised in any way is never fun. Resolving a compromise is often frustrating and time consuming.
+
+Unfortunately, though, preventing and dealing with hacking is par for the course when it comes to web applications, and no server is foolproof when it comes to attacks.
+
+The best we can do to mitigate risks is put proper security measures in place and make sure all software is kept up to date.
