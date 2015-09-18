@@ -8,7 +8,8 @@ When this happens, it means DigitalOcean has locked down your droplet because, a
 
 When this happens, it likely means a malicious hacker gained access to your Droplet and used it to perform DDoS attacks, which caused that large flood of outgoing traffic.
 
-DDoS stands for *Distributed Denial of Service* and is a attack in which hackers use &ldquo;innocent&lrdquo; servers to do things like send spam mail, or try to overwhelm some other target server.
+DDoS stands for *Distributed Denial of Service* and is a attack in which hackers use &ldquo;innocent&rdquo; servers to do things like send spam mail, or try to overwhelm some other target server.
+
 
 ## What happened
 So how did this happen? Well, it can be hard to track down exactly where the problem started.
@@ -23,8 +24,8 @@ DDoS is one of the various plagues web developers and system administrators face
 
 In these notes we're going to describe what to do to get back on track if your DigitalOcean Droplet has been suspended.
 
-## What to do next
 
+## What to do next
 If you read the support ticket DigitalOcean creates for you after they shut you down, you'll see they link to this article: [How To Recover from a Compromised Droplet Sending an Outgoing Flood or DDoS](https://www.digitalocean.com/community/tutorials/how-to-recover-from-a-compromised-droplet-sending-an-outgoing-flood-or-ddos).
 
 The long and short of their plan for recovery involves creating a new Droplet, and &ldquo;hardening&rdquo; that Droplet to try and prevent further DDoS attacks from happening. The article also outlines how to recover your data from your compromised Droplet, so that you can move it to your new Droplet.
@@ -33,261 +34,128 @@ Following in DigitalOcean's lead, we're going to outline similar steps, but unde
 
 Fortunately, in our cases, recovery is simple for the following reasons:
 
-1. All our code is backed up in Git.
+1. All our code is backed up via git.
 2. All our databases are built with Laravel Migrations, making the structure easy to create.
-3. We're not dealing with real-world applications, so our data (for the majority of students), is still disposable.
+3. We're not dealing with real-world applications, so any database data is still disposable.
 
 That being said, here's what you should do to get back on track...
 
-## Step 1) Create a new droplet
 
-Create a new Droplet.
+## Create a new droplet
+Start by creating a new Droplet.
 
-As a reminder on what settings you need for the droplet, [here's the flowchart](http://making-the-internet.s3.amazonaws.com/vc-digital-ocean-new-droplet@2x.png) taken from the notes, [Deploy to Digital Ocean](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/10_Deploy_to_Digital_Ocean.md#new-droplet).
+As a reminder on what settings you need for the Droplet, [here's the flowchart](http://making-the-internet.s3.amazonaws.com/vc-digital-ocean-new-droplet@2x.png) taken from the notes, [Deploy to Digital Ocean](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/10_Deploy_to_Digital_Ocean.md#new-droplet).
 
-Once your Droplet is created, note the IP address, and then log in via SSH:
+Don't forget to choose your existing SSH key stored on DigitalOcean when creating this new Droplet.
+
+Once your Droplet is created, note the IP address, and then log in via SSH to confirm the SSH key connection is working:
 
 ```bash
 $ ssh root@your.new.ip.address
 ```
 
-## Step 2) Secure your new Droplet.
+__If you got in, your next steps is to proceed to read the instructions on [Server Hardening] which will take you through the procedures of creating a more secure server setup.__
 
-The `root` user on your account has the highest priveleges; because of that, if a hacker gains access to your server as the `root` user, they have a lot of power to do a lot of harm.
+After you finish those instructions, come back here for the next step.
 
-Because of this, we're going to disable `root` from being able to SSH in to your server.
 
-Before we do that, though, we need to create a new, alternative user that *can* log into your server.
+## Rebuilding your data
+With your new Droplet created, and secured, you want to re-clone your projects from Git.
 
-So, begin by SSH'ing into your server as `root`:
-
-```bash
-$ ssh root@your-server-ip-address
-```
-
-Now, use the command `adduser` followed by a username of your choice, like the example below.
-
-During this process, you'll be prompted to create a password for this new user. Strong passwords are essential to prevent brute force attacks (where a machine is used to try and guess your password). If you're not confident in your ability to generate a secure password, use a [password generator tool](http://correcthorsebatterystaple.net/).
+First, install git:
 
 ```bash
-root@Sept-17-2015:~# adduser susanbuck
-Adding user 'susanbuck' ...
-Adding new group 'susanbuck' (1000) ...
-Adding new user 'susanbuck' (1000) with group 'susanbuck' ...
-Creating home directory '/home/susanbuck' ...
-Copying files from '/etc/skel' ...
-Enter new UNIX password:
-Retype new UNIX password:
-passwd: password updated successfully
-Changing the user information susanbuck
-Enter the new value, or press ENTER the default
-	Full Name []: Susan Buck
-	Room Number []:  
-	Work Phone []:
-	Home Phone []:
-	Other []:
-Is the information correct? [Y/n] y
+$ apt-get git
 ```
 
+Next, set up the SSH key between DigitalOcean and Github. You've done this before, but it was on the compromised Droplet. Now, you're going to do it again for the new, healthy Droplet.
 
-## Give your new user admin privileges
-Next, we want to give your new user administrator privileges.
-
-While still signed in as the root user, run this command:
+While SSH'd into your new Droplet, run this command to generate a new SSH key pair:
 
 ```bash
-$ visudo
+$ ssh-keygen -t rsa -C "your@email.com"
 ```
 
-Search for the line that looks like this:
+Get the public key:
 
 ```bash
-root    ALL=(ALL:ALL) ALL
+$ cat ~/.ssh/id_rsa.pub
 ```
 
-Below that line, add *new* line that looks like the following (replace `newuser` with your username):
-
-```bash
-newuser ALL=(ALL:ALL) ALL
-```
-
-Save your changes (`ctrl` + `x`, then `y`, then *Enter*).
-
-
-## SSH access for your new user
-
-When you first set up DigitalOcean, you created an SSH key connection between your computer and your server. This allowed you to SSH (as root), without having to enter a password.
-
-You'll want the same conveience/security that SSH keys provide for your new user as well, so lets set that up.
-
-Open a *new* Terminal/Cmder window, so we can grab your public key from your local machine, without loosing your connection to your Droplet.
-
-In the new window, on your local computer, get the contents of your `id_rsa.pub` file using the cat command.
-
-```bash
-cat ~/.ssh/id_rsa.pub
-```
-
-The output will look something like this:
+Outputs a public key that looks something like this:
 
 ```bash
 ssh-rsa [LONG STRING OF RANDOM CHARACTERS] your@email.com
 ```
 
-Select the entire public key, and copy it.
+Copy the public key, and go to Github.com -> *Settings* -> *SSH Keys* -> *Add SSH Key*.
 
-Switch back to the Terminal/Cmder window that's SSH'd into your Droplet and run the following command to switch to your new user (replace `username` with your username):
-
-```bash
-$ su - username
-```
-
-Tip: The `whoami` command can be used now (or anytime) to tell you who you're logged in as.
-
-Your new user does not have any SSH settings yet, so let's start by creating a new .ssh directory:
+Confirm the SSH key works with this command:
 
 ```bash
-$ mkdir ~/.ssh
+ssh -T git@github.com
 ```
 
-And, for security purposes, restrict the permissions on this new directory:
+
+## Clone your repositories/projects
+To load up your existing project code on your new Droplet, first move into your web accessible directory:
 
 ```bash
-$ chmod 700 .ssh
+$ cd /var/www/html
 ```
 
-Now we'll open a file called `authorized_keys` using nano:
+Then, clone each project you've created so far. For example, to clone p1:
+```bash
+$ git clone git@github.com:susanBuck/p1.git
+```
+
+The above is enough to rebuild projects p1 and p2.
+
+For p3 and p4 (if you're there yet), you'll need to `cd` into those directories and run through the following steps:
+
+1. Recreate your database environment config file.
+2. Run `composer update`
+3. Open write access on the storage directory: `chmod -R 777 app/storage`
+5. Run `php artisan migrate` to build your database structure
+
+
+## Re-setup your Subdomains
+Finally, lets get your subdomains back in working order. To do this, we'll recreate the steps taken in the notes [Live domain setup](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/11_Live_domain_setup.md).
+
+The following is an &ldquo;express&rdquo; run down of the procedures:
+
+__DNS__
+Visit Namecheap (or whoever your domain provider is) and update your DNS settings to point your main domain and any subdomains to your new Droplet ip address.
+
+<img src='http://making-the-internet.s3.amazonaws.com/vc-updating-dns-after-droplet-was-locked@2x.png' style='width:100%; max-width:1000px' alt='Point your domains to your new IP'>
+
+__VirtualHost__
+Then, set up a new VirtualHost block for each subdomain in `000-default.conf`:
+
+```
+$ sudo nano /etc/apache2/sites-enabled/000-default.conf
+```
+
+And one new VirtualHost block for *each* project at the end of the file.
+
+For example, here's the VirtualHost block for p1:
 
 ```bash
-$ nano ~/.ssh/authorized_keys
+<VirtualHost *:80>
+  ServerName p1.yourdomain.com
+  DocumentRoot "/var/www/html/p1"
+  <Directory "/var/www/html/p1">
+    AllowOverride All
+  </Directory>
+</VirtualHost>
 ```
 
-Now insert your public key (which should be in your clipboard). Save and exit (`ctrl` + `x`, then `y`, then *Enter*).
+Save and exit.
 
-And once again, we'll secure things up with permissions:
+Restart apache so your new VirtualHost settings will take effect:
 
 ```bash
-$ chmod 600 ~/.ssh/authorized_keys
+$ service apache2 restart
 ```
 
-To confirm this worked, log out of your Droplet by running the `exit` command:
-
-```bash
-susanbuck@Sept-17-2015:~$ exit
-logout
-Connection to 45.55.221.4 closed.
-```
-
-Then try to SSH back in as your new user:
-```
-$ ssh susan@45.55.221.4
-```
-
-## Disable root access
-
-Now that you've confirmed you can SSH in as your new user, it's safe to now disable `root` from SSH'ing into the server.
-
-This is done via the config file, `/etc/ssh/sshd_config`.
-
-Typically, to edit this file, we'd use nano, make some changes, save, and be done.
-
-However, if you were to try to do that now, you'd receive the following error when trying to save:
-
-```
-Error writing /etc/ssh/sshd_config: Permission denied
-```
-
-This doesn't seem to make sense... Didn't we just give our new user administrative privileges in the steps above?
-
-We did! *However*, in order to utilize these privileges, we need to prefix commands with `sudo`.
-
-> sudo (/ˈsuːduː/ or /ˈsuːdoʊ/) is a program for Unix-like computer operating systems that allows users to run programs with the security privileges of another user, by default the superuser. The name is a contraction of "do as su" where "su" is an abbreviation for "super user." -[ref](https://en.wikipedia.org/wiki/Sudo)
-
-So, moving forward, if you ever try a command are told you don't have permissions, prefix the command with `sudo`.
-
-Given that, to open `sshd_config` with admin privileges, run this command:
-
-```
-$ sudo nano /etc/ssh/sshd_config
-```
-
-In the file, look for the line `PermitRootLogin yes` and toggle `yes` to `no`.
-
-When done, save and exit (`ctrl` + `x`, then `y`, then *Enter*).
-
-To make this change take effect, run the following command to restart your SSH services:
-
-```bash
-$ sudo service ssh restart
-```
-
-(Note how that command was again prefixed with `sudo` since restarting SSH is something only an administrator can do).
-
-## test
-Let's just confirm the above changes worked and the `root` user can no longer SSH into your Droplet.
-
-In a new Terminal/Cmder window, try to SSH in as root:
-
-```
-$ ssh root@your-server-ip-address
-```
-
-You'll note that it will now continually ask for a password, instead of just letting you in as it previously did with your SSH keys set up. Even if you had the password, it would still not let you in.
-
-Now you might look at this whole procedure and think we're chasing our tails. We prevented the `root` user from logging in because it's dangerous because `root` has administrative privileges.
-
-*But*, we also created a *new* user that also had administrative privileges.
-
-Isn't this just as bad?
-
-It's not, and the reason is because hackers target `root`. They know many, many servers start with a default admin login with the username `root`, and not all server admins will go to the trouble to disable `root`. Because of this, they target their attacks on `root` since it provides them the greatest payoff.
-
-But using a non-default username, you're greatly decreasing the chances a hacker will brute force enter your server.
-
-
-
-
-## Tips
-
-If you want to see a history of authorization attempts made on your server, view the contents of `auth.log`:
-
-```bash
-$ sudo cat /var/log/auth.log
-```
-
-It's not uncommon to open that file and see lots of root login attempts; those are the hackers trying to get into your account!
-
-
-
-
-
-Disable the root user
-Use an SSH key
-Keep your software up to date
-Use strong passwords
-Keep your firewall settings as strict as possible
-
-
-## Reference:
-+ https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps
-
-+ https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04
-
-
-
-
-
-
-
----
-
-sudo cat /var/log/auth.log
-
-
-
-
-
-
-
-
-https://www.digitalocean.com/community/tutorials/how-to-recover-from-a-compromised-droplet-sending-an-outgoing-flood-or-ddos
+Test out your subdomains. If they're not working, yet, revisit the section on [DNS cache](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/11_Live_domain_setup.md#dns-cache) in the original notes.
