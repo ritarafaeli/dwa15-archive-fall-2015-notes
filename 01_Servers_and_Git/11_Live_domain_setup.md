@@ -18,7 +18,10 @@ Give the above settings a few minutes to take effect, then test out your domain.
 
 <img src='http://making-the-internet.s3.amazonaws.com/vc-namecheap-domain-first-working@2x.png' style='max-width:958px; width:100%' alt='First domain working'>
 
-If you don't yet see the above, try the following:
+### DNS Cache
+If your domain is not working yet, it could because your DNS settings are being cached.
+
+To get around this, try the following steps:
 
 1. Clear your browser cache.
 2. Clear your DNS cache
