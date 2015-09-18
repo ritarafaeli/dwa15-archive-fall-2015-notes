@@ -1,7 +1,8 @@
 # Summary
-In the following instructions, we'll look at the procedures for &ldquo;hardening&rdquo; your DigitalOcean Droplet, making it harder for malicious hackers from compromising your server.
+In the following instructions, we'll look at the procedures for &ldquo;hardening&rdquo; your DigitalOcean Droplet, making it more difficult for malicious hackers to compromise your server.
 
 Here are the steps we will cover:
+
 1. Create a new, alternative user to `root`.
 2. Grant this new user administrative privileges.
 3. Disable SSH access from the `root` user.
@@ -55,7 +56,7 @@ Is the information correct? [Y/n] y
 ## Give your new user admin privileges
 Next, we want to give your new user administrator privileges.
 
-While still signed in as the root user:
+While still signed in as the root user, run:
 
 ```bash
 $ visudo
@@ -83,12 +84,14 @@ When you first set up DigitalOcean, you created a SSH key connection between you
 
 You'll want the same convenience/security that SSH keys provide for your new user as well, so lets set that up.
 
+(In the following steps, it's assumed that you've already created a public key, `id_rsa.pub`, when you first followed the [Setup Git notes](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/07_Setup_Github.md).)
+
 Open a *new* Terminal/Cmder window, so we can grab your public key from your local machine, without losing your connection to your Droplet.
 
 In the new window, on your local computer, get the contents of your `id_rsa.pub` file using the cat command.
 
 ```bash
-cat ~/.ssh/id_rsa.pub
+$ cat ~/.ssh/id_rsa.pub
 ```
 
 The output will look something like this:
@@ -99,15 +102,13 @@ ssh-rsa [LONG STRING OF RANDOM CHARACTERS] your@email.com
 
 Select the entire public key, and copy it.
 
-Switch back to the Terminal/Cmder window that's SSH'd into your Droplet and run the following command to switch to your new user (replace `susanbuck` with your username):
+Switch back to the Terminal/Cmder window that's SSH'd as root into your Droplet and run the following command to switch to your new user (replace `susanbuck` with your username):
 
 ```bash
 $ su - susanbuck
 ```
 
-Tip: The `whoami` command can be used now (or anytime) to tell you who you're logged in as.
-
-Your new user does not have any SSH settings yet, so let's start by creating a new .ssh directory:
+Your new user does not have any SSH settings yet, so let's start by creating a new `.ssh` directory:
 
 ```bash
 $ mkdir ~/.ssh
@@ -242,13 +243,32 @@ Then, go to your Droplet settings on DigitalOcean.com, and follow the instructio
 
 
 ## Tips
+
 __auth.log__
+
 If you want to see a history of authorization attempts made on your server, view the contents of `auth.log`:
 
 ```bash
 $ sudo cat /var/log/auth.log
 ```
 
+You can often see traces of malicious login attempts in this file.
+
+
+__whoami__
+
+The `whoami` command can be used now (or anytime) to tell you who you're logged in as. This can be useful if you're switching between root and your new user
+
+
+__passwd__
+
+To update your user password, use the `passwd` command.
+
+__What users exist?__
+
+To see what users exist on your server, run `cat /etc/passwd`
+
+Note that in addition to the new user you created above, and `root`, there are many other default users on your server. These users do not have full administrator privileges like you and `root` do.
 
 ## Reference:
 + [How To Add and Delete Users on an Ubuntu 14.04 VPS](https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps)
