@@ -37,7 +37,6 @@ Try again. Still not loading?
 
 
 ## Virtual Host / Subdomain setup
-
 Your primary domain is working, now lets get a subdomain working (`http://helloworld.domain.com`).
 
 In the above step, you already set up your DNS for the subdomain, making it so that traffic hitting `http://helloworld.domain.com` will point to your IP address.
@@ -63,6 +62,8 @@ At the *bottom* of `000-default.conf`, paste in this VirtualHost block:
   </Directory>
 </VirtualHost>
 ```
+
+Tip for Cmder user's: If paste the above VirtualHost block in Cmder using keyboard shortcuts, it will paste just the first line. To get it to paste *all* the lines, right click the top bar in Cmder and choose *Edit* -> *Paste* ([screencast demo](http://screencast.com/t/u43zTSEx4GKl)).
 
 In plain english, the above VirtualHost block says: *when traffic comes in via `helloworld.dwa15-practice.biz`, point to the `/var/www/html/hello-world` directory*.
 
