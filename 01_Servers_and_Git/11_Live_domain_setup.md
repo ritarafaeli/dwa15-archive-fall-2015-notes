@@ -76,7 +76,7 @@ In nano, at the *bottom* of `000-default.conf`, paste in your edited VirtualHost
 
 <img src='http://making-the-internet.s3.amazonaws.com/vc-pasting-virtual-host-block@2x.png' style='max-width:75%; width:877px'>
 
-*Tip for Cmder users: If you try and paste multiple lines into Cmder using keyboard shortcuts, it will paste just the first line. To get it to paste *all* the lines, right click the top bar in Cmder and choose `Edit` -> `Paste` ([screencast demo](http://screencast.com/t/u43zTSEx4GKl)).*
+Tip for Cmder users: If you try and paste multiple lines into Cmder using keyboard shortcuts, it will paste just the first line. To get it to paste *all* the lines, right click the top bar in Cmder and choose `Edit` -> `Paste` ([screencast demo](http://screencast.com/t/u43zTSEx4GKl)).
 
 When you're done editing the new VirtualHost block, save your changes to `000-default.conf` (`ctrl` + `x`, then `y`, then *Enter*).
 
