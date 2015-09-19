@@ -159,6 +159,35 @@ $ ssh yourusername@your-droplet-ip-address
 If everything went well, you should be logged in again.
 
 
+## New SSH key for Github
+Your new user will want to communicate with Github, so lets set up a new SSH key pair. You've followed these procedures a couple times now (when first setting up DigitalOcean, when first connecting to Github), so here's the express version of what you need to do:
+
+While logged in as your new user, generate a new key pair:
+
+```bash
+$ ssh-keygen -t rsa -C "your@email.com"
+```
+
+Output the resulting public key:
+```bash
+$ cat ~/.ssh/id_rsa.pub
+```
+
+Copy the output from the above, and in Github.com -> *Settings* -> *SSH Keys* add this new key.
+
+At this point, you might be acquiring quite a collection of keys in Github, so you may want to choose a descriptive name for this key such as:
+
+```
+User: [username], DigitalOcean Droplet: [droplet name]
+```
+
+After the key is added, confirm it's working with:
+
+```bash
+$ ssh -T git@github.com
+```
+
+
 ## Using administrative privileges with sudo
 You're now logged in as your new user, and this new user has administrative privileges.
 
