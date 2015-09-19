@@ -81,7 +81,7 @@ Save your changes (`ctrl` + `x`, then `y`, then *Enter*).
 
 
 ## SSH access for your new user
-When you first set up DigitalOcean, you created a SSH key connection between your computer and your server. This allowed you to SSH into your Droplet as root, without having to enter a password.
+When you first set up DigitalOcean, you created a SSH key connection between your computer and your server. This allowed you to SSH into your Droplet as `root`, without having to enter a password.
 
 You'll want the same convenience/security that SSH keys provide for your new user as well, so lets set that up.
 
@@ -91,8 +91,14 @@ Open a *new* Terminal/Cmder window, so we can grab your public key from your loc
 
 In the new window, on your local computer, get the contents of your `id_rsa.pub` file using the cat command.
 
+Mac:
 ```bash
 $ cat ~/.ssh/id_rsa.pub
+```
+
+Windows/Terminal (replace `YourName`):
+```bash
+$ cat C:\Users\YourName\.ssh\id_rsa.pub
 ```
 
 The output will look something like this:
@@ -101,9 +107,9 @@ The output will look something like this:
 ssh-rsa [LONG STRING OF RANDOM CHARACTERS] your@email.com
 ```
 
-Select the entire public key, and copy it.
+Select the entire public key and copy it.
 
-Switch back to the Terminal/Cmder window that's SSH'd as root into your Droplet and run the following command to switch to your new user (replace `susanbuck` with your username):
+Switch back to the Terminal/Cmder window that's SSH'd into your Droplet as `root` and run the following command to switch to your new user (replace `susanbuck` with your username):
 
 ```bash
 $ su - susanbuck
@@ -115,65 +121,57 @@ Your new user does not have any SSH settings yet, so let's start by creating a n
 $ mkdir ~/.ssh
 ```
 
-And, for security purposes, restrict the permissions on this new directory:
+For security purposes, we'll make it so only you (i.e. the user you're logged in as) can *Read*, *Write* or *Execute* this directory, by setting the permissions to `700`:
 
 ```bash
 $ chmod 700 .ssh
 ```
 
-Now we'll open a file called `authorized_keys` using nano:
+(Permissions are beyond the scope of these notes; if interested, you can [learn more here](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/00_Command_Line/07_Permissions.md).)
+
+Next, open `authorized_keys` using nano:
 
 ```bash
 $ nano ~/.ssh/authorized_keys
 ```
 
-Now insert your public key (which should be in your clipboard).
+Paste in your public key which you copied above from your local computer.
 
-Save and exit (`ctrl` + `x`, then `y`, then *Enter*).
+Save your changes to `authorized_keys` and exit (`ctrl` + `x`, then `y`, then *Enter*).
 
-And once again, we'll secure things up with permissions:
+Finally, we'll alter the permissions on `authorized_keys` to make sure no other user can edit it. We'll use the permission code `600` which will allow just your user to *Read* and *Write* to this file (*Execute* is not needed since it's a file, not a directory).
 
 ```bash
 $ chmod 600 ~/.ssh/authorized_keys
 ```
 
-To confirm this worked, log out of your Droplet by running the `exit` command:
+To confirm the above steps worked, log out of your Droplet:
 
 ```bash
-susanbuck@Sept-17-2015:~$ exit
-logout
-Connection to 45.55.221.4 closed.
+$ exit
 ```
 
 Then try to SSH back in as your new user:
 ```
-$ ssh susan@45.55.221.4
+$ ssh yourusername@your-droplet-ip-address
 ```
 
 If everything went well, you should be logged in again.
 
 
-## Change ownership of /var/www/html
-If you try to edit files in your `/var/www/html` as your new user, you'll run into permission issues because that directory is owned by `root`. You can get around permission issues using the `sudo` command, but to make things easier, you can instead change the ownership of that directory to belong to your new user, with the following command.
+## Using administrative privileges with sudo
+You're now logged in as your new user, and this new user has administrative privileges.
 
-Replace `susanbuck` with your username.
+However, you'll notice that if you try to do some action that requires admin privileges, you won't be able to.
 
+For example, try to run this command to view `auth.log`:
 ```bash
-$ chown -R susanbuck /var/www/html
+$ cat /var/log/auth.log
 ```
 
-
-## Disable root access
-Now that you've confirmed you can SSH in as your new user, it's safe to disable `root` from SSH'ing into the server.
-
-This is done via the config file, `/etc/ssh/sshd_config`.
-
-Typically, to edit this file, we'd use nano, make some changes, save, and be done.
-
-However, if you were to try to do that now, you'd receive the following error when trying to save:
-
-```
-Error writing /etc/ssh/sshd_config: Permission denied
+You should see this message:
+```bash
+cat: /var/log/auth.log: Permission denied
 ```
 
 This doesn't seem to make sense... Didn't we just give our new user administrative privileges in the steps above?
@@ -184,12 +182,27 @@ We did! *However*, in order to utilize these privileges, we need to prefix comma
 
 Moving forward, if you ever try a command and are told you don't have permissions, try the command again but prefix it with `sudo`.
 
-So, to open `sshd_config` with admin privileges, run this command:
+
+## Change ownership of /var/www/html
+If you try to edit files in your `/var/www/html` as your new user, you'll run into permission issues because that directory is owned by `root`. You can get around permission issues using the `sudo` command, as described above, but to make things easier, you can instead change the ownership of that directory to belong to your new user, with the following command.
+
+Replace `susanbuck` with your username.
+
+```bash
+$ sudo chown -R susanbuck /var/www/html
+```
+
+
+## Disable root access
+Now that you've confirmed you can SSH in as your new user, it's safe to disable `root` from SSH'ing into the server.
+
+This is done via the config file, `/etc/ssh/sshd_config`.
+
+Open `sshd_config` in nano with admin privileges (i.e. prefix with `sudo`):
 
 ```
 $ sudo nano /etc/ssh/sshd_config
 ```
-You will be prompted to enter the password for your user.
 
 Once the file is opened, look for the line `PermitRootLogin yes` and toggle `yes` to `no`.
 
@@ -204,13 +217,10 @@ $ sudo service ssh restart
 Note how that command was again prefixed with `sudo` since restarting SSH is something only an administrator can do.
 
 
-
-
-
 ## Confirm root user no longer has SSH access
 Let's just confirm the above changes worked and the `root` user can no longer SSH into your Droplet.
 
-In a new Terminal/Cmder window, try to SSH in as root:
+In a *new* Terminal/Cmder window, try to SSH in as root:
 
 ```
 $ ssh root@your-server-ip-address
@@ -230,7 +240,6 @@ By using a non-default username, you're greatly decreasing the chances a hacker 
 
 
 ## Ban failed login attempts
-
 There's a file on your server, `/var/log/auth.log`, which logs authorization requests on your server.
 
 Take a look at its contents:
@@ -281,7 +290,8 @@ Note that these default settings can all be adjusted in your `/etc/fail2ban/jail
 You've now put a fair amount of work in to configuring your Droplet. Given that, you should take advantage of [DigitalOcean's *Snapshot* feature](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/99_Extras/03_Digital_Ocean_Snapshots.md).
 
 
-## Tips
+## Tips/Notes
+
 
 ### whoami
 The `whoami` command can be used now (or anytime) to tell you who you're logged in as. This can be useful if you're switching between root and your new user
@@ -295,6 +305,36 @@ To update your user password, use the `passwd` command.
 To see what users exist on your server, run `cat /etc/passwd`
 
 Note that in addition to the new user you created above, and `root`, there are many other default users on your server. These users do not have full administrator privileges like you and `root` do.
+
+
+### Disabling password logins
+As an extra level of security, you can completely disable the ability for users to SSH into your server with a password, requiring all logins to have a SSH key. This will eliminate the possibility of a hacker entering your server via a password guessing brute force attack.
+
+We don't suggest this approach in the above steps, because in a class environment, it can be useful to have password logins available (for example, if you need to give a TA or instructor access to your server).
+
+In a real-world environment, however, it's a good approach, so below are the steps to make that happen:
+
+Open `sshd_config`:
+```bash
+$ sudo nano /etc/ssh/sshd_config
+```
+
+Find this line:
+```
+#PasswordAuthentication yes
+```
+
+Change it to this:
+```bash
+PasswordAuthentication no
+```
+Save and exit.
+
+Restart SSH:
+```
+sudo service ssh restart
+```
+
 
 
 ## Reference:
