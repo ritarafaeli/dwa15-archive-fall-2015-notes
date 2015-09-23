@@ -83,7 +83,11 @@ $ sudo service apache2 restart
 
 
 ## Clone your Laravel app
-While still SSH'd into your Droplet, navigate into your web accessible directory at `/var/www/html`.
+While still SSH'd into your Droplet, navigate into your web accessible directory at `/var/www/html`:
+
+```bash
+$ cd /var/www/html
+```
 
 Clone the Laravel project which you created in the last doc.
 
