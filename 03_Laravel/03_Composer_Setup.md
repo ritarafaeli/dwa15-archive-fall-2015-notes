@@ -20,7 +20,7 @@ For __Mac__, we want PHP from command line to use MAMP's installation of PHP, lo
 
 For __Windows__, we want PHP from command line to use XAMPP's installation of PHP, located at `c:\xampp\php\`
 
-This is accomplished by adding the above paths to your PATH variable. For complete instructions on what the PATH variable is and how to edit it, go read: [__PATH Variables__]().
+This is accomplished by adding the above paths to your PATH variable. For complete instructions on what the PATH variable is and how to edit it, go read: [__PATH Variables__](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/00_Command_Line/99_Extras/PATH_Variable.md).
 
 Once you've completed the instructions on the PATH Variables doc, you should confirm that
 
