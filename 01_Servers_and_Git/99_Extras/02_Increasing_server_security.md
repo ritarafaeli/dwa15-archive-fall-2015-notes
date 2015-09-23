@@ -6,7 +6,7 @@ Here are the steps we will cover:
 1. Create a new, alternative user to `root`.
 2. Grant this new user administrative privileges.
 3. Disable SSH access from the `root` user.
-4. Cover how to run commands as an administrator as your new user.
+4. How to run commands as an administrator as your new user.
 5. Install fail2ban to block repeated, failed, login attempts.
 
 
@@ -85,7 +85,7 @@ When you first set up DigitalOcean, you created a SSH key connection between you
 
 You'll want the same convenience/security that SSH keys provide for your new user as well, so lets set that up.
 
-(In the following steps, it's assumed that you've already created a public key, `id_rsa.pub`, when you first followed the [Setup Git notes](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/07_Setup_Github.md).)
+(In the following steps, it's assumed that you've already created a public key (`id_rsa.pub`) on your local machine when you first followed the [Setup Git notes](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/07_Setup_Github.md).)
 
 Open a *new* Terminal/Cmder window, so we can grab your public key from your local machine, without losing your connection to your Droplet.
 
@@ -124,7 +124,7 @@ $ mkdir ~/.ssh
 For security purposes, we'll make it so only you (i.e. the user you're logged in as) can *Read*, *Write* or *Execute* this directory, by setting the permissions to `700`:
 
 ```bash
-$ chmod 700 .ssh
+$ chmod 700 ~/.ssh
 ```
 
 (Permissions are beyond the scope of these notes; if interested, you can [learn more here](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/00_Command_Line/07_Permissions.md).)
@@ -145,7 +145,13 @@ Finally, we'll alter the permissions on `authorized_keys` to make sure no other 
 $ chmod 600 ~/.ssh/authorized_keys
 ```
 
-To confirm the above steps worked, log out of your Droplet:
+To confirm the above steps worked, first log out of your new user account:
+
+```bash
+$ exit
+```
+
+Then log out of your Droplet:
 
 ```bash
 $ exit
@@ -220,6 +226,8 @@ Replace `susanbuck` with your username.
 ```bash
 $ sudo chown -R susanbuck /var/www/html
 ```
+
+Note: The `-R` flag is making this command recursive, so it will change the ownership for only for `/var/www/html` but everything inside of it.
 
 
 ## Disable root access
@@ -307,13 +315,11 @@ $ sudo service fail2ban restart
 
 Note that with fail2ban implemented, you do stand the chance of accidentally banning yourself from your own server if you have too many failed login attempts.
 
-The default threshold for getting banned is 3 failed login attempts.
+The default threshold for getting banned is 6 failed login attempts.
 
-If that happens, you will not be able to login from your banned IP address for the default time of 1 hour.
+If that happens, you will not be able to login from your banned IP address for the default time of 600 seconds (10 minutes).
 
 Note that these default settings can all be adjusted in your `/etc/fail2ban/jail.local` config file. In that file, you can also &ldquo;whitelist&rdquo; your IP address so it will not get banned. If your network provider uses dynamic IPs, however, this change will not be permanent.
-
-
 
 ## Take a Snapshot of your Current Configuration
 You've now put a fair amount of work in to configuring your Droplet. Given that, you should take advantage of [DigitalOcean's *Snapshot* feature](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/99_Extras/03_Digital_Ocean_Snapshots.md).
@@ -364,6 +370,11 @@ Restart SSH:
 sudo service ssh restart
 ```
 
+
+### Locked yourself out?
+Once you've implemented the above security steps, it's possible you may accidentally lock yourself out of your own account. For example, if you trip fail2ban with too many failed login attempts, or you accidentally delete your private key.
+
+If this happens, you can still login to your Droplet using DigitalOcean's web-based Console Access to fix whatever situation caused you to become locked out.
 
 
 ## Reference:
