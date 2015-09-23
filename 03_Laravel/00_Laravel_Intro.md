@@ -1,6 +1,6 @@
 ## What is a framework?
 
-<img src='http://making-the-internet.s3.amazonaws.com/laravel-what-is-a-framework@2x.png' style='max-width:813px; width:100%' alt='What is a framework'>
+<img src='http://making-the-internet.s3.amazonaws.com/laravel-what-is-a-framework@2x.png' style='max-width:500px; width:100%' alt='What is a framework'>
 
 A framework is a package of code.
 
@@ -16,18 +16,22 @@ With all this taken care of, it frees you up to start building the functionality
 
 In addition to this, a framework provides a **skeleton** in which to build your application.
 
+__Benefits:___
+
+* Don't reinvent the wheel.
+* Work with tried and tested code.
+* Write code that is more universally understood.
+
+
+
+
+## MVC Pattern
 Many PHP frameworks follow the **MVC Pattern**:
 
 <img src='http://making-the-internet.s3.amazonaws.com/laravel-mvc@2x.png' class='' style='max-width:585px; width:100%' alt='MVC Explained'>
 
 
 
-
-**Benefits of working with a framework:**
-
-* Don't reinvent the wheel.
-* Work with tried and tested code.
-* Write code that is more universally understood.
 
 ## PHP Frameworks
 
@@ -37,20 +41,20 @@ Many PHP frameworks follow the **MVC Pattern**:
     + [2014](http://www.sitepoint.com/best-php-frameworks-2014/)
 
 
+
+
 ## Laravel
 *PHP That Doesn't Hurt*
 
 <http://laravel.com>
 
+Expressive:
 
-* Expressive
-
-<img src='http://making-the-internet.s3.amazonaws.com/laravel-expressive@2x.png' class='' style='max-width:1237px; width:100%' alt='Expressive example'>
+<img src='http://making-the-internet.s3.amazonaws.com/laravel-expressive@2x.png' class='' style='max-width:800px; width:100%' alt='Expressive example'>
 
 * Composer powered
-* MVC
 * URL Routing (Including RESTful Routing)
-* Blade Templating Language
+* Blade templating language
 * Localisation
 * Testing
 * Authentication

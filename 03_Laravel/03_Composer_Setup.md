@@ -37,7 +37,7 @@ $ which php
 And...
 
 ```bash
-~   $ php --ini
+$ php --ini
 Configuration File (php.ini) Path: /Applications/MAMP/bin/php/php5.6.10/conf
 Loaded Configuration File:         /Applications/MAMP/bin/php/php5.6.10/conf/php.ini
 Scan for additional .ini files in: (none)
@@ -63,7 +63,7 @@ Additional .ini files parsed:      (none)
 
 ## Installing Composer on Mac
 
-Move into your bin directory. This is a common location to put command line executable programs, so we'll install Composer here.
+Move into your `/usr/local/bin` directory. This is a common location to put command line executable programs, so we'll install Composer here.
 
 ```bash
 $ cd /usr/local/bin

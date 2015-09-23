@@ -11,6 +11,8 @@ The Laravel framework has these system requirements:
 If you've followed our lead and set your PHP executable to be the same as the PHP that ships with MAMP/XAMPP, your local server should meet all these requirements.
 
 
+
+
 ## Create a new Laravel applications
 
 There are a couple different ways to spawn a new Laravel application but we'll be using Composer.
@@ -44,6 +46,8 @@ Once in this directory, run the `ls -la` command; you should see all the Laravel
 <img src='http://making-the-internet.s3.amazonaws.com/laravel-fresh-install@2x.png' style='max-width:668px; width:100%' alt='Laravel fresh install'>
 
 
+
+
 ## Permissions
 
 Laravel needs to have the ability to write everything in the `storage` and `bootstrap/cache` directories, so set these two directories to have write permissions (`777`):
@@ -54,6 +58,8 @@ $ chmod -R 777 bootstrap/cache
 ```
 
 (If you want to learn more about permissions, [go here](https://github.com/susanBuck/notes/blob/master/07_SysAdmin/999_Permissions.md))
+
+
 
 
 ## Namespacing
@@ -96,9 +102,9 @@ Windows:
 c:\xampp\htdocs\foobooks\public
 ```
 
-In MAMP you can change the Document Root via the settings:
+In MAMP you can change the Document Root via the Apache settings:
 
-<img src='http://making-the-internet.s3.amazonaws.com/laravel-app-setup-document-root@2x.png' class='' style='max-width:558px; width:75%' alt=''>
+<img src='http://making-the-internet.s3.amazonaws.com/laravel-app-setup-document-root@2x.png' class='' style='max-width:300px; width:100%'>
 
 In XAMP you'll change the Document Root via Apache's config file, `httpd.conf`:
 
@@ -108,9 +114,11 @@ __Save all changes and restart your server.__
 
 If all went well, you should see Laravel's default welcome page when you hit `http://localhost` in your browser:
 
-<img src='http://making-the-internet.s3.amazonaws.com/laravel-app-setup-success@2x.png' class='' style='max-width:647px; width:100%' alt=''>
+<img src='http://making-the-internet.s3.amazonaws.com/laravel-app-setup-success@2x.png' style='max-width:300px; width:100%'>
 
 Whenever configuring a server to run Laravel, always remember **the Document Root has to point to the `public/` folder within your app directory**.
+
+
 
 
 ## Version Control your new app
