@@ -28,5 +28,5 @@ And that's it.
 ## Restoring/Starting from a Snapshot
 You can now restore from this Snapshot in one of two places:
 
-1. Droplet settings -> *Snapshots* -> *estore from Snapshot*
+1. Droplet settings -> *Snapshots* -> *Restore from Snapshot*
 2. When creating a new Droplet, under *Images*, you can select a previously created snapshot ([screenshot](http://making-the-internet.s3.amazonaws.com/vc-creating-new-droplet-from-snapshot.png)).
