@@ -33,8 +33,6 @@ ini_set('display_errors', 1); # Display errors on page (instead of a log file)
 	$dime_value    = .10;
 	$quarter_value = .25;
 
-    echo $foobar;
-
 	/*
 	Define 4 more variables, which will each represent
 	how many of each coin is in the bank.
