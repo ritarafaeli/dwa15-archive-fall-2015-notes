@@ -80,7 +80,7 @@ $ curl -sS https://getcomposer.org/installer | sudo php
 To make calling Composer easier, rename `composer.phar` to `composer` using the `mv` (move) command:
 
 ```bash
-$ mv composer.phar composer
+$ sudo mv composer.phar composer
 ```
 
 Test it works:
