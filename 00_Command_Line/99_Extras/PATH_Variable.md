@@ -67,7 +67,7 @@ __Tips__
 Instead of editing `/etc/paths` you can also append the the PATH variable by adding the following line to your `~/.bashrc` file:
 ```bash
 # Set PATH to be whatever PATH currently is, plus the path to PHP
-export PATH=$PATH:"/Applications/MAMP/bin/php/php5.6.10/bin/"
+export PATH="/Applications/MAMP/bin/php/php5.6.10/bin/":$PATH
 ```
 
 
