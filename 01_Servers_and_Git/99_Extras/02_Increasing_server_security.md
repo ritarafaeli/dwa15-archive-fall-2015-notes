@@ -194,6 +194,12 @@ $ ssh -T git@github.com
 ```
 
 
+## SSH Key Cheat Sheet
+If you're having a hard time wrapping your head around the various SSH key pairs we've set up in this course, check out this [SSH Keys Cheat Sheet](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/99_SSH_Keys_Cheat_Sheet.md).
+
+
+
+
 ## Using administrative privileges with sudo
 You're now logged in as your new user, and this new user has administrative privileges.
 
