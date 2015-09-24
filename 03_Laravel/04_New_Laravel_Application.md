@@ -57,7 +57,7 @@ $ chmod -R 777 storage
 $ chmod -R 777 bootstrap/cache
 ```
 
-(If you want to learn more about permissions, [go here](https://github.com/susanBuck/notes/blob/master/07_SysAdmin/999_Permissions.md))
+(If you want to learn more about permissions, [go here](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/00_Command_Line/07_Permissions.md))
 
 
 
