@@ -132,7 +132,7 @@ This was a step we could skip locally because of how your local servers are conf
 
 To do this, we first identified that on DigitalOcean servers, Apache runs under a user called `www-data`.
 
-Given that, make the user `www-data` own the `storage` directory:
+Given that, make the user `www-data` own the `storage` directory and everything in it (`-R`):
 
 ```bash
 $ sudo chown -R www-data:www-data storage

@@ -50,28 +50,15 @@ Once in this directory, run the `ls -la` command; you should see all the Laravel
 
 ## Permissions
 
-At this point in the installation procedure, some Laravel texts/tutorials would have you run the following two commands:
+At this point in the installation procedure, some Laravel tutorials would have you run specific commands to make the `storage` and `bootstrap/cache` directories writable.
 
-```bash
-$ chmod -R 777 storage
-$ chmod -R 777 bootstrap/cache
-```
+When using Laravel, the Apache web server needs *write* access for the `storage` and `bootstrap/cache` directories because Laravel will write data to these directories. For example, errors will be written to `storage/logs/laravel.log`, and cached configurations to speed up your app will be written to `bootstrap/cache`.
 
-Before you run those commands, though, read on:
+But for __Windows/XAMPP users__, you shouldn't need to adjust permissions because Apache already has all the permissions it needs since it runs under Window's LocalSystem account  which has extensive read/write access to local paths.
 
-Laravel/your Apache web server needs *write* access for the `storage` and `bootstrap/cache` directories. This is because when you run your Laravel application it will write to these directories. For example, errors will be written to `storage/logs/laravel.log`, and cached configurations to speed up your app will be written to `bootstrap/cache`.
+Likewise, most __Mac/MAMP users__ shouldn't need adjust any permissions because MAMP's Apache is running as the user who launched it, i.e. you, and as owner of all the files and directories in your project, you already have write access.
 
-But for __Windows/XAMPP users__, you shouldn't need to adjust permissions because Apache already has all the permissions it needs because it runs under the LocalSystem account on Windows, which has extensive read/write access to local paths.
-
-Likewise, most __Mac/MAMP users__ shouldn't need to run those commands because MAMP Apache is running as the user who launched it, i.e. you, and as owner of all the files and directories in your project, you already have write access.
-
-The only instance where this might not work is if you're using a different local server setup that does *not* have the correct permissions. If that were the cause, you'd run the above `chmod` commands to grant the appropriate `write` access.
-
-__Long story short:__ You can skip those commands for now. Down below when you try to first load the app, if you run into permission issues, you can come back here.
-
-All this being said, when you get to the deploying your Laravel app to a live web server, you will definitely need those commands. We'll cover that when you get to the *Deploy to DigitalOcean* notes though, so you don't have to worry about that right now.
-
-(If you want to learn more about the permissions used in the commands, [go here](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/00_Command_Line/07_Permissions.md)).
+The only instance where this might not work is if you're using a different local server setup that does *not* have the correct permission configuration. If that were the cause, you'd want to configure `storage` and `bootstrap/cache` to be writable by your web server.
 
 
 
