@@ -125,13 +125,29 @@ When that command is complete (it may take a few minutes), if you view the conte
 
 
 
-## Set permissions
-Just like on your local server, Laravel needs write access to the `storage` and `bootstrap/cache` directories, so set these two directories to have write permissions (`777`):
+## Permissions
+As discussed when we were setting up Laravel on your local server, Laravel/the Apache web server needs write access to the `storage` and `bootstrap/cache` directories.
 
+This was a step we could skip locally, but it can't be skipped on your live servers. We need to make sure Apache has write access to these folders, which it does not by default.
+
+To do this, we identified that on DigitalOcean, Apache runs under a user called `www-data`
+
+Given that, make the user `www-data` own the `storage` directory:
 ```bash
-$ chmod -R 777 storage
-$ chmod -R 777 bootstrap/cache
+$ sudo chown -R www-data:www-data storage
 ```
+
+Then give that user write access:
+```bash
+$ sudo chmod -R 755 storage
+```
+
+And now do the same two steps for the `bootstrap/cache` directory:
+```bash
+$ sudo chown -R www-data:www-data bootstrap/cache
+$ sudo chmod -R 755 bootstrap/cache
+```
+
 
 
 
