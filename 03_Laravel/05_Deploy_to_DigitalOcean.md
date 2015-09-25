@@ -135,18 +135,12 @@ To do this, we first identified that on DigitalOcean servers, Apache runs under 
 Given that, make the user `www-data` own the `storage` directory and everything in it (`-R`):
 
 ```bash
-$ sudo chown -R www-data:www-data storage
-```
-
-Then give that user write access:
-```bash
-$ sudo chmod -R 755 storage
+$ sudo chown -R www-data storage
 ```
 
 And now do the same two steps for the `bootstrap/cache` directory:
 ```bash
-$ sudo chown -R www-data:www-data bootstrap/cache
-$ sudo chmod -R 755 bootstrap/cache
+$ sudo chown -R www-data bootstrap/cache
 ```
 
 <sup>
