@@ -17,7 +17,7 @@ Let's use an example scenario of adding the PHP executable that comes with MAMP 
 
 As of this writing, the latest version of PHP that ships with MAMP is `php5.6.10` ([screenshot](http://making-the-internet.s3.amazonaws.com/sysadmin-identify-latest-version-of-php-in-mamp.png)).
 
-If you dig into the MAMP folder contents on your computer, you can find a PHP executable in `/Applications/MAMP/bin/php/php5.6.10/bin/`, so that's the path we want to add.
+If you dig into the MAMP folder contents on your computer, you can find a PHP executable in `/Applications/MAMP/bin/php/php5.6.10/bin`, so that's the path we want to add.
 
 <img src='http://making-the-internet.s3.amazonaws.com/sysadmin-finding-php-in-mamp@2x.png' style='max-width:1121px; width:100%' alt='Finding PHP in MAMP'>
 
@@ -30,7 +30,7 @@ $ sudo nano /etc/paths
 At the end of `/etc/paths`, add this line:
 
 ```bash
-/Applications/MAMP/bin/php/php5.6.10/bin/
+/Applications/MAMP/bin/php/php5.6.10/bin
 ```
 
 <img src='http://making-the-internet.s3.amazonaws.com/sysadmin-append-to-paths@2x.png' style='max-width:1136px; width:100%' alt=''>
@@ -64,10 +64,9 @@ Zend Engine v2.6.0, Copyright (c) 1998-2015 Zend Technologies
 
 __Tips__
 
-Instead of editing `/etc/paths` you can also append the the PATH variable by adding the following line to your `~/.bashrc` file:
+Instead of editing `/etc/paths` you can also prepend your MAMP PHP path to the PATH variable by adding the following line to your `~/.bashrc` file:
 ```bash
-# Set PATH to be whatever PATH currently is, plus the path to PHP
-export PATH="/Applications/MAMP/bin/php/php5.6.10/bin/":$PATH
+export PATH="/Applications/MAMP/bin/php/php5.6.10/bin":$PATH
 ```
 
 
