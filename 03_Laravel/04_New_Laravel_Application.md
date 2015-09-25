@@ -50,7 +50,7 @@ Once in this directory, run the `ls -la` command; you should see all the Laravel
 
 ## Permissions
 
-At this point in the installation procedure, the Laravel documentation (and most Laravel tutorials) would have you run the following two commands:
+At this point in the installation procedure, some Laravel texts/tutorials would have you run the following two commands:
 
 ```bash
 $ chmod -R 777 storage
