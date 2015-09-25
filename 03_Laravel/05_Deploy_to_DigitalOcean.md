@@ -52,7 +52,7 @@ $ curl -sS https://getcomposer.org/installer | sudo php
 Rename the composer executable to just `composer` so it's simple to call:
 
 ```bash
-$ mv composer.phar composer
+$ sudo mv composer.phar composer
 ```
 
 Test it's working:
@@ -71,7 +71,7 @@ Laravel requires Apache's `mod_rewrite` for Routing purposes.
 To enable this module, run the following command on your DigitalOcean droplet:
 
 ```bash
-$ a2enmod rewrite
+$ sudo a2enmod rewrite
 ```
 Restart Apache to make these this change take effect:
 
@@ -236,7 +236,7 @@ Here's an example of what our `000-default.conf` file looked like after adding t
 After you save your changes to `000-default.conf`, restart Apache to make the change take effect:
 
 ```bash
-$ service apache2 restart
+$ sudo service apache2 restart
 ```
 
 
