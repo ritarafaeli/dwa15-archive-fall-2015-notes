@@ -149,7 +149,9 @@ $ sudo chown -R www-data:www-data bootstrap/cache
 $ sudo chmod -R 755 bootstrap/cache
 ```
 
--[ref](http://superuser.com/a/581259/84723)
+<sup>
+Ref: [SuperUser: Setting correct permissions for uploading files](http://superuser.com/a/581259/84723)
+</sup>
 
 
 
