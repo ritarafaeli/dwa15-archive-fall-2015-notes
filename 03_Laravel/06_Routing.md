@@ -72,7 +72,7 @@ Route::post('/new', function() {
 
 ## Set up a practice route
 
-In `/app/routes.php` define a practice route:
+In `/app/Http/routes.php` define a practice route:
 
 ```php
 Route::get('/practice', function() {
