@@ -264,7 +264,7 @@ Once setup is complete, your process for deploying changes can be summarized in 
 
 
 
-## Common problems (and solutions)
+## Common problems
 
 When running your application on your production server, the most common symptom you'll see when there's a problem is a blank white screen, or a generic error message that says `Whoops, there was a problem`.
 
