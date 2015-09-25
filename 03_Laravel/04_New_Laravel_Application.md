@@ -50,14 +50,28 @@ Once in this directory, run the `ls -la` command; you should see all the Laravel
 
 ## Permissions
 
-Laravel needs to have the ability to write everything in the `storage` and `bootstrap/cache` directories, so set these two directories to have write permissions (`777`):
+At this point in the installation procedure, the Laravel documentation (and most Laravel tutorials) would have you run the following two commands:
 
 ```bash
 $ chmod -R 777 storage
 $ chmod -R 777 bootstrap/cache
 ```
 
-(If you want to learn more about permissions, [go here](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/00_Command_Line/07_Permissions.md))
+Before you run those commands, though, read on:
+
+Laravel/your Apache web server needs *write* access for the `storage` and `bootstrap/cache` directories. This is because when you run your Laravel application it will write to these directories. For example, errors will be written to `storage/logs/laravel.log`, and cached configurations to speed up your app will be written to `bootstrap/cache`.
+
+But for __Windows/XAMPP users__, you shouldn't need to adjust permissions because Apache already has all the permissions it needs because it runs under the LocalSystem account on Windows, which has extensive read/write access to local paths.
+
+Likewise, most __Mac/MAMP users__ shouldn't need to run those commands because MAMP Apache is running as the user who launched it, i.e. you, and as owner of all the files and directories in your project, you already have write access.
+
+The only instance where this might not work is if you're using a different local server setup that does *not* have the correct permissions. If that were the cause, you'd run the above `chmod` commands to grant the appropriate `write` access.
+
+__Long story short:__ You can skip those commands for now. Down below when you try to first load the app, if you run into permission issues, you can come back here.
+
+All this being said, when you get to the deploying your Laravel app to a live web server, you will definitely need those commands. We'll cover that when you get to the *Deploy to DigitalOcean* notes though, so you don't have to worry about that right now.
+
+(If you want to learn more about the permissions used in the commands, [go here](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/00_Command_Line/07_Permissions.md)).
 
 
 
