@@ -11,8 +11,7 @@ To start, use this command to see what your PATH variable is currently set to:
 echo $PATH
 ```
 
-One way to add new paths to your PATH variable is to add them in the the `/etc/paths` file.  
-
+One way to add new paths to your PATH variable is to add them in the `/etc/paths` file.  
 Let's use an example scenario of adding the PHP executable that comes with MAMP to your PATH. This will make it so that when you run the command `php` from command line, it will use MAMP's PHP executable.
 
 As of this writing, the latest version of PHP that ships with MAMP is `php5.6.10` ([screenshot](http://making-the-internet.s3.amazonaws.com/sysadmin-identify-latest-version-of-php-in-mamp.png)).
