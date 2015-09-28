@@ -17,7 +17,7 @@ These steps are done once, to configure your server and make it &ldquo;Laravel r
 These steps are done any time you're deploying a new Laravel project to your server:
 
 1. Clone your Laravel app
-2. Build `vendors/` directory
+2. Build `vendor/` directory
 3. Set permissions
 4. Set up `.env` file
 5. Configure subdomain
@@ -105,7 +105,7 @@ $ cd foobooks
 
 
 
-## Build vendors/ directory
+## Build vendor/ directory
 If you compare the contents of your local application files to your production application files on your Droplet, you'll notice the Droplet version is missing a `vendor/` directory.
 
 <img src='http://making-the-internet.s3.amazonaws.com/laravel-foobooks-on-droplet-no-vendor-directory@2x.png' style='max-width:1026px; width:100%'>
@@ -120,7 +120,7 @@ Given this, you need to have Composer build your vendor's directory with this co
 $ composer install --prefer-dist
 ```
 
-When that command is complete (it may take a few minutes), if you view the contents of your live app, you should now see a `vendors/` directory.
+When that command is complete (it may take a few minutes), if you view the contents of your live app, you should now see a `vendor/` directory.
 
 
 
