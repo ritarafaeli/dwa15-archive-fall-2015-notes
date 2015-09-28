@@ -70,12 +70,7 @@ $ cd /usr/local/bin
 ```
 
 <sup>
-Note: On some versions of OSX the `/usr` directory does not exist by default. If you receive the error `/usr/local/bin/composer: No such file or directory` then you must create the directory manually:
-
-```bash
-$ mkdir -p /usr/local/bin
-$ cd /usr/local/bin
-```
+Note: On some versions of OSX the `/usr` directory does not exist by default. If you receive the error `/usr/local/bin/composer: No such file or directory` then you must create the directory manually using this command `mkdir -p /usr/local/bin`.
 </sup>
 
 Once in `/usr/local/bin`, download and install `composer.phar`:
