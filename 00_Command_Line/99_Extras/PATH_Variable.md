@@ -27,15 +27,13 @@ Using Nano and the `sudo` command, open `/etc/paths`:
 $ sudo nano /etc/paths
 ```
 
-At the end of `/etc/paths`, add this line:
+At the *start* of `/etc/paths`, add this line:
 
 ```bash
 /Applications/MAMP/bin/php/php5.6.10/bin
 ```
 
 <img src='http://making-the-internet.s3.amazonaws.com/sysadmin-append-to-paths@2x.png' style='max-width:1136px; width:100%' alt=''>
-
-Note the path we're using ends with a trailing backlash. The idea is to point to the directory where `php` can be found, not the actual `php` file itself.
 
 Save your changes (`ctrl` + `x`, then `y`, then *Enter*).
 
