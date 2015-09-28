@@ -11,7 +11,7 @@ To start, use this command to see what your PATH variable is currently set to:
 echo $PATH
 ```
 
-Your PATH variable is built from the contents of `/etc/paths`, so to add a new path, you'll append it to `/etc/paths`.
+One way to add new paths to your PATH variable is to add them in the the `/etc/paths` file.  
 
 Let's use an example scenario of adding the PHP executable that comes with MAMP to your PATH. This will make it so that when you run the command `php` from command line, it will use MAMP's PHP executable.
 
