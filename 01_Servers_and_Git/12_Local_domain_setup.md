@@ -18,7 +18,7 @@ In the notes below, we'll set up `http://foobooks.loc` as our example.
 
 ## 1. Tell Apache to use the virtual hosts file
 
-First, locate `httpd.conf`, your local server's Apache configuration file.
+First, locate and open `httpd.conf`, your local server's Apache configuration file.
 
 * Mac: `/Applications/MAMP/conf/apache/httpd.conf`
 * Windows: `c:\xampp\apache\conf\httpd.conf`
@@ -66,7 +66,7 @@ $ elevate nano c:/Windows/System32/drivers/etc/hosts
 At the bottom of your hosts file, add a new host:
 
 ```txt
-127.0.0.1 foobar.loc
+127.0.0.1 foobooks.loc
 ```
 
 This is telling your computer that whenever you access `http://foobar.loc` from your computer, it should map to the ip address `127.0.0.1` (the IP address of your local server).
