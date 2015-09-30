@@ -54,6 +54,7 @@ You can have two routes with the same URI that react to different http methods.
 Route::get('/new', function() {
 
 	$view  = '<form method="POST">';
+    $view .= csrf_field(); # This will be explained more later
 	$view .= 'Title: <input type="text" name="title">';
 	$view .= '<input type="submit">';
 	$view .= '</form>';
