@@ -4,12 +4,12 @@ In the following notes we'll set up __Virtual Hosts__ for individual apps so tha
 
 With these instructions you could set it up so that...
 
-`http://helloworld.yourdomain.com` has a local equivalent at `http://helloworld.loc`
-`http://foobooks.yourdomain.com` has a local equivalent at `http://foobooks.loc`
-`http://p1.yourdomain.com` has a local equivalent at `http://p1.loc`
-`http://p2.yourdomain.com` has a local equivalent at `http://p2.loc`
-`http://p3.yourdomain.com` has a local equivalent at `http://p3.loc`
-`http://p4.yourdomain.com` has a local equivalent at `http://p4.loc`
++ `http://helloworld.yourdomain.com` has a local equivalent at `http://helloworld.loc`
++ `http://foobooks.yourdomain.com` has a local equivalent at `http://foobooks.loc`
++ `http://p1.yourdomain.com` has a local equivalent at `http://p1.loc`
++ `http://p2.yourdomain.com` has a local equivalent at `http://p2.loc`
++ `http://p3.yourdomain.com` has a local equivalent at `http://p3.loc`
++ `http://p4.yourdomain.com` has a local equivalent at `http://p4.loc`
 
 In the notes below, we'll set up `http://foobooks.loc` as our example.
 
@@ -132,7 +132,7 @@ Adjust the following as needed:
 
 Note, the above VirtualHost blocks assumes you're running on Port 80 (`*:80`). If you're running your local Apache on a different port, make that edit.
 
-This is what your `httpd-vhosts.conf` file should look like when you're done:
+This is what your `httpd-vhosts.conf` file might look like when you're done:
 
 <img src='http://making-the-internet.s3.amazonaws.com/vc-vhosts-done@2x.png' class='' style='max-width:726px; width:75%' alt=''>
 
@@ -143,7 +143,10 @@ Make sure you explicitly type in `http://foobar.loc` with `http://` at the begin
 
 
 
-## Summary (to be repeated every time you want to add a new app):
+## Summary
+
+To be repeated every time you want to add a new app):
+
 + Add a new local URL in your computer's `host` file.
 + Add a new `<VirtualHost>` record block in MAMP/Apache's `httpd-vhosts.conf` file.
 
