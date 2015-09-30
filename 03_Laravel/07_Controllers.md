@@ -1,5 +1,4 @@
 ## What are Controllers?
-
 + Controller classes make up the **C** of the **MVC** structure; they act as the glue between the request, the Model and the resulting View (or data).
 
 + For tiny applications it's convenient to throw all your logic into closures in your routes. As things grow, however, this becomes messy and hard to test.
