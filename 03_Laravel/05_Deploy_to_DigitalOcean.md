@@ -287,6 +287,6 @@ Common issues we see with first time installations include the following:
 
 1. Lack of a `.env` file.
 2. Forgetting to build the `vendors` directory.
-3. Forgetting to set the necessary write permissions on `storage` and `browser/cache`
+3. Forgetting to set the necessary write permissions on `storage` and `bootstrap/cache`
 
 If your application won't run, double check you've completed the above 3 steps correctly.
