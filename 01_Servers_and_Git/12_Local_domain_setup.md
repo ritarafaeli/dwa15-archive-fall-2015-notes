@@ -69,12 +69,12 @@ At the bottom of your hosts file, add a new host:
 127.0.0.1 foobooks.loc
 ```
 
-This is telling your computer that whenever you access `http://foobar.loc` from your computer, it should map to the ip address `127.0.0.1` (the IP address of your local server).
+This is telling your computer that whenever you access `http://foobooks.loc` from your computer, it should map to the ip address `127.0.0.1` (the IP address of your local server).
 
 
 ## 3. Virtual Host entry
 
-Next, tell your local server how to handle requests to `http://foobar.loc` via a VirtualHost entry.
+Next, tell your local server how to handle requests to `http://foobooks.loc` via a VirtualHost entry.
 
 Open your `httpd-vhosts.conf` file.
 
@@ -99,7 +99,7 @@ Now, add your own VirtualHost block:
 Mac/MAMP users, yours might look something like this:
 ```txt
 <VirtualHost *:80>
-    ServerName foobar.loc
+    ServerName foobooks.loc
     DocumentRoot /Applications/MAMP/htdocs/foobooks/public
     <Directory /Applications/MAMP/htdocs/foobooks/public>
         Options Indexes FollowSymLinks MultiViews
@@ -113,7 +113,7 @@ Mac/MAMP users, yours might look something like this:
 Windows/XAMPP users, yours might look something like this:
 ```txt
 <VirtualHost *:80>
-    ServerName foobar.loc
+    ServerName foobooks.loc
     DocumentRoot c:\xampp\htdocs\foobooks\public
     <Directory c:\xampp\htdocs\foobooks\public>
         Options Indexes FollowSymLinks MultiViews
@@ -138,7 +138,7 @@ This is what your `httpd-vhosts.conf` file might look like when you're done:
 
 **Restart your local server** and test out your local URL.
 
-Make sure you explicitly type in `http://foobar.loc` with `http://` at the beginning. If you don't, your browser may just try and do a web search for `foobar.loc` because it does not recognize `.loc` as a domain extension.
+Make sure you explicitly type in `http://foobooks.loc` with `http://` at the beginning. If you don't, your browser may just try and do a web search for `foobooks.loc` because it does not recognize `.loc` as a domain extension.
 
 
 
