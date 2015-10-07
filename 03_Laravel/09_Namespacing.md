@@ -165,5 +165,6 @@ There's more autoloading going on under the hood by default with Composer&mdash;
 Namespacing is an important concept in modern PHP and Laravel. Understanding the basics outlined above will help you as you navigate the Laravel codebase, start including external packages, and write your own code.
 
 Summary: Namespacing...
+
 1. helps avoid name collisions.
 2. helps power autoloading by mapping namespaced class names to file paths.
