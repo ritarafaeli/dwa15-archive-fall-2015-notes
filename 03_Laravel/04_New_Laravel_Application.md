@@ -174,8 +174,15 @@ When you visit your repository on Github you should see all your changes there.
 Your app is now set up locally and ready for development. In the next section, we'll cover the procedure for deploying your app to a live server.
 
 
+## Troubleshooting
+If your new app won't run, the first place you'll want to check for clues is `storage/logs/laravel.log` as that's where Laravel outputs errors.
+
+If you see the error `No supported encrypter found.` chances are it means the `APP_KEY` in your environment file is not properly set. To fix this, run the following command:
+
+```php
+$ php artisan key:generate
+```
 
 
-## Tips
-
+## Misc
 * When using the `composer create-project` command, we added the `--prefer-dist ` flag. You can read more about `--prefer-dist` and how it differs from `--prefer-source` [here](https://getcomposer.org/doc/03-cli.md#install).
