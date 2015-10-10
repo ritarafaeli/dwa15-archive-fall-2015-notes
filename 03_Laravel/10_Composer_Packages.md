@@ -57,7 +57,7 @@ When searching for packages on Packagst or Packalyst, you'll enter keywords for 
 
 <img src='http://making-the-internet.s3.amazonaws.com/laravel-searching-for-image-package@2x.png' style='max-width:823px; width:100%' alt=''>
 
-From there, you can choose matches that good to learn more.
+From there, you can choose matches that look good to learn more.
 
 The main thing you want to find in the information page is the link to the Package's Github page, because that's where the most comprehensive info is.
 
