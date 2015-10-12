@@ -203,7 +203,7 @@ For our next example, we're going to use a Package called [__rych-random__](http
 
 Some example usages for this package might be generating random coupon codes for your site, or random passwords if you have to reset a user's password, etc.
 
-This particular package is built specifically for Laravel, but it will work.
+This particular package is not built specifically for Laravel, but it will work.
 
 
 ### Installing rych-random
