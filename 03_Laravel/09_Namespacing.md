@@ -145,7 +145,7 @@ And the path to the file corresponds at:
 app/Http/Controllers/BookController.php
 ```
 
-Note that if you had changed your App name after first installing Laravel `php artisan app:name Fookbooks`, that would be reflected here:
+Note that if you had changed your App name after first installing Laravel `php artisan app:name Foobooks`, that would be reflected here:
 
 ```json
 "psr-4": {
