@@ -184,22 +184,68 @@ public function postCreate(Request $request) {
 }
 ```
 
-This practice of passing `Request $request` to the postCreate method is an example of __dependency injection__.
 
-Dependency injection is a programming practice that lets you provide (i.e. inject) class dependencies on a method by method basis. The benefit of doing this is you can easily swap out different dependencies or &ldquo;mock&rdquo; dependencies for testing purposes.
 
-Once you've passed the Request object to your method, you'll be able to access data from your forms like so:
+## More methods available in the Request object
+In the above example, we used the Request object's `input()` method to get the data from one particular field in the form:
 
 ```php
 $title = $request->input('title');
 ```
 
-This is essentially the equivalent of:
-```
-$title = $_POST['title'];
+This is just one of the methods available to us from the Request object. Another example is the `all()` method, which as the name suggests, gets all the data from the form:
+
+```php
+$data = $request->all();
 ```
 
-The difference is the Request class comes with not only all the data of your form, but additional information about the request, and methods you can perform on the request.
+Here are some other notable examples of methods for retrieving data from the Request object:
+```php
+# Get the input 'name', but if it's not there, default to 'Sally'
+$name = $request->input('name', 'Sally');
+
+# Get only the username and password
+$input = $request->only(['username', 'password']);
+$input = $request->only('username', 'password');
+
+# Get everything except `credit_card`
+$input = $request->except(['credit_card']);
+$input = $request->except('credit_card');
+```
+
+The Request object holds more info than just form field data. For example, you can also get Query String info using the `query()` method.
+
+```php
+# Example URL: http://domain.com?limit=100
+$limit = $request->query('limit');
+```
+
+Or maybe you need to determine if the request is coming via Ajax. For that you can use the `ajax()` method:
+
+```php
+$isAjax = $request->ajax();
+```
+
+To see a full list of methods available to the Request object, refer to the API documentation: <http://laravel.com/api/5.0/Illuminate/Foundation/Http/FormRequest.html>
+
+
+
+
+## Dependency Injection
+Thea above practice of passing `Request $request` to the postCreate method is an example of __dependency injection__.
+
+```php
+public function postCreate(Request $request) {
+
+    [...]
+
+}
+```
+
+Dependency injection is a programming practice that lets you provide (i.e. inject) class dependencies on a method by method basis. The benefit of doing this is you can easily swap out different dependencies or &ldquo;mock&rdquo; dependencies for testing purposes.
+
+Dependency injection is a more advanced topic, and not something you need to master right now. It's mentioned here just so you know why the `Request $request` object was passed to the method in the way that it was.
+
 
 
 
