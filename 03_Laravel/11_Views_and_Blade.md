@@ -85,6 +85,17 @@ With your new view file created, fill it with the following content:
 </html>
 ```
 
+Note that most of the above file looks like regular HTML. The exception is the content in the `<section>` and `<footer>` where you see the double brackets being used (`{{ }}`). Those brackets are Blade syntax, and they are short for &ldquo;echo this to the page&rdquo;.
+
+So when you see something like this:
+```php
+{{ $title }}
+```
+
+It's just a Blade shortcut for this:
+```php
+<?php echo $title; ?>
+```
 
 
 
@@ -131,7 +142,9 @@ For example, say you want to handle two conditions: one where the book title has
 </section>
 ```
 
-To test this out, you'd want to visit http://foobooks.loc/books/show, without adding a title to the URL.
+This is our second example that shows some Blade syntax (the first one being the `{{ }}`). Here we see that Blade syntax uses the `@` signs before control structures.
+
+To test the above code out, you'd want to visit http://foobooks.loc/books/show, without adding a title to the URL.
 
 Small gotcha: If you try this, it will fail. Not because the condition is written wrong, but because our route is not set up for the title to be optional.
 
@@ -236,7 +249,7 @@ Next, *replace* the content in `/resources/views/books/show.blade.php` so it con
 {{--
 This `head` section will be yielded right before the closing </head> tag.
 Use it to add specific things that *this* View needs in the head,
-such as a page specific styesheets.
+such as a page specific stylesheets.
 --}}
 @section('head')
     <link href="/css/books/show.css" type='text/css' rel='stylesheet'>
@@ -279,3 +292,7 @@ Following the above patterns, implement Views for these two other existing route
 Route::get('/books', 'BookController@getIndex');
 Route::get('/books/create', 'BookController@getCreate');
 ```
+
+
+## Tips
++ Tracing errors coming from your views can be tricky because of how blade files are translated and cached. [In this 5 minute video](https://youtu.be/tC2bVzGHY2g), I discuss this and provide a strategy for tracking down errors in View files.
