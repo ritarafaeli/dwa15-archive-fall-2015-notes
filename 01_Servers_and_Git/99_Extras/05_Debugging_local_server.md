@@ -52,3 +52,11 @@ __If you're having a port issue with Apache:__
 Follow the same steps as above, but search for processes labeled `httpd` (short for HTTP daemon, it's equivalent to Apache) and terminate them.
 
 After you've identified and terminated the appropriate processes, return to MAMP and attempt to restart your server.
+
+
+## Conclusion
+If the above actions don't set you on the right track, here are your next steps:
+
++ Open your Apache or MySQL log files and look at the recent errors.
++ Google search for key phrases in these errors to see solutions provided by other users with the same issue.
++ Post a thread in Piazza documenting your issue, including relevant log information.

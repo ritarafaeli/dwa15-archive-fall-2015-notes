@@ -34,7 +34,10 @@ If you see **two little green dots** next to *Apache* and *MySQL Server* you kno
 
 <img src='http://making-the-internet.s3.amazonaws.com/vc-mamp-mac-all-systems-go@2x.png' class='' style='max-width:723px; width:100%' alt=''>
 
-If, however, one of them is missing a green dot, it means there was a problem. Check `/Applications/MAMP/logs` for any error log files which may indicate what the problem is.
+If either of these services don't start up, you'll want to read these notes: [__Debugging your local server__](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/99_Extras/05_Debugging_local_server.md).
+
+
+### Your first file
 
 With MAMP installed and your local server running, test out your first PHP script: Create a new file in your code editor and save it as `helloworld.php` in `/Applications/MAMP/htdocs/`.
 
@@ -45,6 +48,8 @@ Load your `helloworld.php` file in your browser via `http://localhost/helloworld
 <img src='http://making-the-internet.s3.amazonaws.com/vc-hello-world-done-on-mac@2x.png' class='' style='max-width:746px; width:100%' alt=''>
 
 That's it! Your local server for Mac is installed, running and tested.
+
+
 
 
 ## XAMPP Setup on Windows
@@ -62,34 +67,7 @@ If all goes well, *Apache* and *MySQL* in the *Modules* column should light up w
 
 <img src='http://making-the-internet.s3.amazonaws.com/vc-xampp-win-start-servers@2x.png' class='' style='max-width:723px; width:100%' alt=''>
 
-If either of these services don't start up, you'll want to dig into your log files for clues. From the XAMPP Control Panel, there's a *logs* button next to each service.
-
-
-### Port conflict troubleshooting
-
-(Skip this section if Apache and MySQL started without any issues.)
-
-The most common issue we see with getting Apache started in XAMPP is a port conflict, specifically if some other process on your computer is already using Apache's default port of `80`.
-
-If this is happening to you, try the following steps.
-
-First, __close and re-open XAMPP__. It may just fix the problem. Some users have reported that after a fresh install of XAMPP, this step is needed.
-
-If that doesn't work, open Window's [*Task Manager*](http://www.howtogeek.com/66622/stupid-geek-tricks-6-ways-to-open-windows-task-manager/) and switch the *Processes* tab. Select any process labeled `httpd.exe` and terminate it by clicking *End Process*:
-
-<img src='http://making-the-internet.s3.amazonaws.com/sysadmin-windows-taskmanager@2x.png' class='' style='max-width:939px; width:100%' alt='Windows Task Manager'>
-
-Then, try starting Apache from the XAMPP control panel again.
-
-As a last resource, if the above steps don't work, you can tell XAMPP to use a different port for Apache; open Apache's config file (`httpd.conf`) then find the section under `Listen:`:
-
-<img src='http://making-the-internet.s3.amazonaws.com/vc-xampp-change-apache-port@2x.png' class='' style='max-width:1179px; width:100%' alt=''>
-
-An alternative port number you might try is `8080`.
-
-Always stop and restart Apache after making a change to the `httpd.conf` file.
-
-If this works, note that when you access your local server pages your URL will need to append the port like so: `http://localhost:8080`
+If either of these services don't start up, you'll want to read these notes: [__Debugging your local server__](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/99_Extras/05_Debugging_local_server.md).
 
 
 ### Your first file
