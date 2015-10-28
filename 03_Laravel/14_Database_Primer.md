@@ -23,7 +23,7 @@ In this course, we'll be using the __MySQL database__.
 In addition to providing you with an Apache server, MAMP and XAMPP also provide you with MySQL database functionality.
 
 Now's a good time to make sure MySQL is running in MAMP/XAMPP:
-<img src='http://making-the-internet.s3.amazonaws.com/laravel-mysql-in-mamp-and-xampp@2x.png' class='' style='max-width:920px; width:100%' alt='MySQL in MAMP and XAMPP'>
+<img src='http://making-the-internet.s3.amazonaws.com/mysql-running-in-xampp-and-mamp@2x.png' style='max-width:921px; width:100%' alt='MySQL running in XAMPP and MAMP'>
 
 If MySQL is not running refer to these notes: [Debugging your local server](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/01_Servers_and_Git/99_Extras/05_Debugging_local_server.md).
 
@@ -131,7 +131,7 @@ Looking at the example data above, we came up with the following design:
 
 <img src='http://making-the-internet.s3.amazonaws.com/laravel-books-table-design@2x.png' style='max-width:480px; width:100%' alt='books table design'>
 
-To understand the **MySQL data types** chosen for each field in this table, [visit this reference of common MySQL data types](@todo: enter url).
+To understand the **MySQL data types** chosen for each field in this table, [visit this reference of common MySQL data types](https://github.com/susanBuck/dwa15-fall2015-notes/blob/master/03_Laravel/15_Common_MySQL_Data_Types.md).
 
 In phpMyAdmin, this is what the above `books` table design looks like:
 
