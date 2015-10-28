@@ -1,11 +1,9 @@
-## Common MySQL Data Types
-
-Reference:
+## Reference:
 
 + [Full list of MySQL Data Types](http://help.scibit.com/mascon/masconMySQL_Field_Types.html)
-+ [Laravel Schema Commands](http://laravel.com/docs/schema#adding-columns)
++ Search for *&ldquo;Available Column Types&rdquo;* on [Laravel: Migrations](http://laravel.com/docs/migrations#writing-migrations).
 
-### Text
+## Text
 
 | MySQL Data Type  	|  Description  	| Range | Example | Laravel
 |---	|---	|--- |--- |---
@@ -13,7 +11,7 @@ Reference:
 | `VARCHAR(size)`  	|  *Variable* length String. |0-255| Email address | `$table->string('email')`
 | `TEXT` | Variable length String; can store up to 2GB of text data. | 0 - 65535 | Blog post | `$table->text('post')`
 
-### Numbers
+## Numbers
 
 
 | MySQL Data Type  	|  Description  	| Range | Example | Laravel
@@ -24,7 +22,7 @@ Reference:
 | `DECIMAL`  	|  A DOUBLE stored as a string, allowing for a fixed decimal point. | 28-29 Significant digits | Money, ex. bank balance | `$table->decimal('bank_balance')`
 
 
-### Misc
+## Misc
 | MySQL Data Type  	|  Description  	| Range | Example | Laravel
 |---	|---	|--- |--- |---
 | `BOOLEAN`  	| Alias for TINYINT(1) | TINYINT(1) | Logged in | `$table->boolean('logged_in');`
