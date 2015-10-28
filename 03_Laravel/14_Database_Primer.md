@@ -113,6 +113,10 @@ Note that each book contains the following data:
 
 These above data points will be the __fields__ in our books table.
 
+For all our tables/fields, we'll follow these suggested naming conventions:
+
++ Table names are plural.
++ Tables and field names are written in snake_case.
 
 
 
