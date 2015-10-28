@@ -102,7 +102,7 @@ Here's an example of a `up()` method to create the `books` table:
 ```php
 public function up() {
 
-	Schema::create('books', function($table) {
+	Schema::create('books', function (Blueprint $table) {
 
 		# Increments method will make a Primary, Auto-Incrementing field.
 		# Most tables start off this way
