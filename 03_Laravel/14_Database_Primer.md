@@ -356,7 +356,7 @@ mysql > USE foobooks;
 Now you can practice any of the commands covered above, such as selecting books:
 
 ```bash
-mysql > SELECT * FROM foobooks;
+mysql > SELECT * FROM books;
 ```
 
 Hit CTRL-C when you're done to exit MySQL.
