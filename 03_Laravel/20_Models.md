@@ -93,10 +93,12 @@ Eloquent ORM powers the Models aspect of our MVC applications...
 ## Models
 Models are the &ldquo;M&rdquo; of the MVC acronym. __A Model is a class that interfaces with a data entity in your application__.
 
-For example, we're going to create a Book Model that will interface with the `books` table.
-We'll also have a User Model to interface with the `users` table.
-And a Author Model to interface with a yet-to-be-created `authors` table.
-Etc.
+For example...
+
++ We're going to create a Book Model that will interface with the `books` table.
++ We'll also have a User Model to interface with the `users` table.
++ And a Author Model to interface with a yet-to-be-created `authors` table.
++ Etc.
 
 (In all of our example, our data entities are database tables, but it could be other things, like a JSON API.)
 
@@ -138,6 +140,7 @@ __1) Class name__
 Our Model's class name should be the singular version of the corresponding table name, and it should be capitalized.
 
 So...
+
 + The `Book` model corresponds with the `books` table.
 + An `Author` model would interface with a `authors` table.
 + A `User` model would interface with a `users` table.
