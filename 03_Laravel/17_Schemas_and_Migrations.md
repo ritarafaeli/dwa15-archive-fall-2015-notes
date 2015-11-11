@@ -231,12 +231,34 @@ Then, it will run through your migrations forward, executing all your `up()` met
 ## Starting over/Your first migrations
 Getting your migrations right the first time can be challenging, especially if you're starting a new project with several new tables.
 
-In many cases, you'll forget fields that you needed to add. Yes, you can create new migrations to add new fields (like we did above with the `page_count` example), but starting off, it'd be nice to have single migrations for each new table, without a bunch of new migrations for each field you forget or mistake you need to fix.
+In many cases, you'll forget fields that you needed to add. Yes, you can create new migrations to add new fields, but starting off, it'd be nice to have single migrations for each new table, without a bunch of new migrations for each field you forget or mistake you need to fix.
 
 There are several Artisan migrate commands that seem like they might help in this situation such as `migrate:refresh` and `migrate:reset` (ref: [Rolling Back Migrations](http://laravel.com/docs/5.1/migrations#rolling-back-migrations)).
 
- These commands are useful but they assume your `down()` functions are written perfectly, and that you haven't had any migrations abort part-way through because of some issue. These assumptions aren't always correct, especially when you're first learning about migrations and building a lot of tables.
+These commands are useful but they assume your `down()` functions are written perfectly, and that you haven't had any migrations abort part-way through because of some issue. These assumptions aren't always correct, especially when you're first learning about migrations and building a lot of tables.
 
-Given this, if you ever want to do an __absolute &ldquo;start over&rdquo;__ you should manually delete *all* your tables (including the `migrations` table) using phpMyAdmin. This will ensure you can run your migration with an absolute fresh start.
+Given this, if you ever want to do an __absolute &ldquo;start over&rdquo;__ you can manually delete *all* your tables (including the `migrations` table) using phpMyAdmin. This will ensure you can run your migration with an absolute fresh start.
 
 At this point, this work-around is acceptable because you're the only one running your migrations since the project hasn't been shared with anyone. It's only once your project has been shared with teammates/other servers that you obviously can't just start over, and you'll want to make sure even granular changes are done a migration at a time.
+
+__Bonus tip:__
+
+Here's a route you may want to implement when practicing/learning. It will quickly drop and re-create your foobooks database giving you an absolute fresh start. The same thing can be accomplished via phpMyAdmin, but this will get the job done with less clicks.
+
+```php
+if(App::environment('local')) {
+
+    Route::get('/drop', function() {
+
+        DB::statement('DROP database foobooks');
+        DB::statement('CREATE database foobooks');
+
+        return 'Dropped foobooks; created foobooks.';
+    });
+
+};
+```
+
+The above route has been wrapped in an if statement so it will only run in your local environment (to avoid accidentally deleting your production database).
+
+Be very cautious with this route as it's very powerful. Only use it in prototypes, not in real world applications.
