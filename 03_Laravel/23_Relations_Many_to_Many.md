@@ -7,7 +7,7 @@ We could add a `tag_id` field to the books table, to associate a tag (novel, fic
 
 To accomplish what we want, we need to implement a *Many to Many* relationship so that *many* books can have *many* tags (and vice versa)
 
-<img src='http://making-the-internet.s3.amazonaws.com/laravel-many-to-many@2x.png' style='max-width:657px; width:100%' alt='Many to Many'>
+<img src='http://making-the-internet.s3.amazonaws.com/laravel-many-to-many@2x.png'>
 
 ## Pivot tables
 *Many to Many* relationships require an additional table, called a pivot table to keep track of the many connections.
