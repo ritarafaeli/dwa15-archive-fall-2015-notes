@@ -85,7 +85,7 @@ Note: For the `created_at` and `updated_at` fields, we used the `Carbon::now()->
 
 Carbon is a package that comes with Laravel and provides many date/time methods; you can read more about Carbon here: <https://github.com/briannesbitt/Carbon>.
 
-Using `Carbon::new()` as we have in this example will give all of your books the same `created_at`/ `updated_at` values. If you need your sample data to have unique timestamp fields, you could use a package like [Faker](https://github.com/fzaninotto/Faker) to generate random time strings.
+Using `Carbon::now()` as we have in this example will give all of your books the same `created_at`/ `updated_at` values. If you need your sample data to have unique timestamp fields, you could use a package like [Faker](https://github.com/fzaninotto/Faker) to generate random time strings.
 
 
 
