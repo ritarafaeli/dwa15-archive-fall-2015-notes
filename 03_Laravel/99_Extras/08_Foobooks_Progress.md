@@ -4,9 +4,7 @@
 
 
 ## List all the books
-Right now it's just printing the string `List all the books`.
-
-`index.blade.php` is created, just needs to be filled in.
+`books/index.blade.php` is created, just needs to be filled in.
 
 Use the `Book` model to get all the books.
 Pass this data to the View.
@@ -48,15 +46,15 @@ Route::get('/books', 'BookController@getIndex');
 
 
 ## Add a book
-`create.blade.php` has been updated to include all the fields:
+`books/create.blade.php` has been updated to include all the fields:
 + author
 + published
 + cover
 + purchase_link
 
-Note the use of `old()` and default values.
+Note the use of `old()` and default values in the view.
 
-In the controller, Validate the new fields:
+In the controller, validate the new fields:
 
 ```php
 'author'        => 'required|min:5',
@@ -79,7 +77,7 @@ $book->save();
 
 If we keep refreshing the post page, it keeps adding new books. Solve with a redirect.
 
-So far most of your controller methods have been returning Strings or Views
+So far most of our controller methods have been returning Strings or Views.
 You can also return a [redirect](http://laravel.com/docs/5.1/responses#redirects).
 
 Redirect to a confirmation page...
@@ -129,7 +127,9 @@ $book = \App\Book::find($id);
 return view('books.edit')->with('book',$book);
 ```
 
-`edit.blade.php` already exists, and expects `$book`.
+`books/edit.blade.php` already exists, and expects `$book`.
+
+Values need to be filled in using `$book`.
 
 Add hidden field to store the `id`.
 
