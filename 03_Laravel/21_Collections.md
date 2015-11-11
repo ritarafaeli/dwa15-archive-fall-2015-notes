@@ -1,6 +1,9 @@
-An Eloquent query returns an object of the [Collection](http://laravel.com/api/5.0/Illuminate/Database/Eloquent/Collection.html) class.
+An Eloquent query returns a Collection object.
 
-This object is a wrapper for an Array called **items** which contains all the data of your query.
++ [Docs: Collection](http://laravel.com/docs/5.1/collections)
++ [API: Collection](http://laravel.com/api/5.0/Illuminate/Database/Eloquent/Collection.html)
+
+The Collection object is a wrapper for an Array called **items** which contains all the data of your query.
 
 <img src='http://making-the-internet.s3.amazonaws.com/laravel-collection@2x.png' class='' style='max-width:951px; width:100%' alt='Eloquent queries return Collections'>
 
@@ -10,7 +13,7 @@ Not only does the Collection object contain your data, it also contains several 
 
 
 ## Collection Magic
-Collections come built in with some [magic methods](http://php.net/manual/en/language.oop5.magic.php) that lets them (the Collections) adapt to how to use them.
+Collections come built in with [magic methods](http://php.net/manual/en/language.oop5.magic.php) that lets them (the Collections) adapt to how you use them.
 
 ### String magic
 For example, if you treat a Collection like a String (e.g. you `echo` it), it will transform itself into a JSON string.
@@ -64,7 +67,28 @@ The Bell Jar
 I Know Why the Caged Bird Sings
 ```
 
-Because of the above points, you can pass a Collection to a View and have that View iterate through the Collection as if it were a regular array or object.
+
+
+
+## Using Collections in your Views
+Because of the above points, you can pass a Collection to a View where it can be iterated through like a regular array or object:
+
+Controller:
+```php
+function getIndex() {
+    $books = \App\Book::all();
+    return view('books.index')->with('books', $books)
+}
+```
+
+View:
+```php
+@foreach($books as $book)
+    <h2>{{ $book->title }}</h2>
+@endforeach
+```
+
+
 
 
 ### Get *just* the data
@@ -97,7 +121,6 @@ array:3 [▼
 
 
 ## Collection Methods
-
 Below is a list of some of the most commonly used methods built into the Collection object.
 
 (Refer to the [Collection API docs for a full list](http://laravel.com/api/5.0/Illuminate/Database/Eloquent/Collection.html))
@@ -168,4 +191,4 @@ $first_book = $books->first(); # Query Collection
 
 ## Reference
 
-* <http://laravel.com/docs/eloquent#collections>
+* [Docs: Collections](http://laravel.com/docs/eloquent#collections)
