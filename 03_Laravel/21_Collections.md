@@ -3,11 +3,10 @@ An Eloquent query returns a Collection object.
 + [Docs: Collection](http://laravel.com/docs/5.1/collections)
 + [API: Collection](http://laravel.com/api/5.0/Illuminate/Database/Eloquent/Collection.html)
 
-The Collection object is a wrapper for an Array called **items** which contains all the data of your query.
+The Collection object is a wrapper for an Array called **items** which contains all the data of your query *and* methods for working with this data.
 
 <img src='http://making-the-internet.s3.amazonaws.com/laravel-collection@2x.png' class='' style='max-width:951px; width:100%' alt='Eloquent queries return Collections'>
 
-Not only does the Collection object contain your data, it also contains several methods for working with the data.
 
 
 
@@ -92,7 +91,7 @@ View:
 
 
 ### Get *just* the data
-If you want just a &ldquo;pure&rdquo; array of the data in your Collection, use can use the [toArray()](http://laravel.com/api/5.0/Illuminate/Support/Collection.html#method_toArray) method. This will "strip" out all the methods of the Collective, giving you *just* the data.
+If you want just a &ldquo;pure&rdquo; array of the data in your Collection, use can use the [toArray()](http://laravel.com/api/5.0/Illuminate/Support/Collection.html#method_toArray) method. This will "strip" out all the methods of the Collection, giving you *just* the data attributes.
 
 ```php
 $books = \App\Book::all();
