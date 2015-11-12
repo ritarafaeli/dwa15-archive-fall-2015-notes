@@ -76,7 +76,7 @@ Controller:
 ```php
 function getIndex() {
     $books = \App\Book::all();
-    return view('books.index')->with('books', $books)
+    return view('books.index')->with('books', $books);
 }
 ```
 
