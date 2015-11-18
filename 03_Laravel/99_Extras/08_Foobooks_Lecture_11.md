@@ -1,3 +1,7 @@
+The following is a very rough outline of the modifications I made to foobooks during Lecture 11.
+
+This should not be considered a stand-alone document; for full details please refer to the lecture video.
+
 ## List all the books
 `books/index.blade.php` is created, just needs to be filled in.
 
