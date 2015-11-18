@@ -39,7 +39,7 @@ Display the data in the View by looping through it.
 
 ## Make /books the homepage as well
 ```php
-Route::get('/books', 'BookController@getIndex');
+Route::get('/', 'BookController@getIndex');
 ```
 
 
@@ -66,7 +66,7 @@ In the controller, validate the new fields:
 Finish BookController.php `postCreate()` so the book is actually added to the database.
 
 ```php
-$book = new \App\Book($data);
+$book = new \App\Book();
 $book->title = $request->title;
 $book->author = $request->author;
 $book->published = $request->published;
@@ -107,12 +107,14 @@ Then in `master.blade.php`:
 
 
 ## Mass Assignment for creating a book
+Controller update:
 ```php
 $data = $request->only('title','author','published','cover','cover_link');
 $book = new \App\Book($data);
 $book->save();
 ```
 
+Model update:
 ```
 protected $fillable = ['title', 'author', 'published', 'cover', 'purchase_link'];
 ```
