@@ -1,8 +1,3 @@
-## Asses what we have so far
-
-
-
-
 ## List all the books
 `books/index.blade.php` is created, just needs to be filled in.
 
@@ -171,4 +166,4 @@ return redirect('/books/edit/'.$request->id);
 
 
 ## Delete a book
-Try this one on your own. A solution will be committed before the next lecture.
+Try this one on your own.

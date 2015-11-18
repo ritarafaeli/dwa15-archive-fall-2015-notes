@@ -199,8 +199,7 @@ Here's what we've accomplished:
 2. Let our Models (Book and Tag) know about the relationship between one another.
 3. Created and seeded the `book_tag` table
 
-With that all set up, we can look at an example of retrieving a single book with its tags.
-
+With that all set up, we can look at an example of retrieving a single book with its tags:
 ```php
 $book = \App\Book::where('title','=','The Great Gatsby')->first();
 
@@ -210,8 +209,7 @@ foreach($book->tags as $tag) {
 }
 ```
 
-Or many books with their tags:
-
+Or many books with their tags (note how tags are eagerly loaded to reduce queries):
 ```php
 $books = \App\Book::with('tags')->get();
 
