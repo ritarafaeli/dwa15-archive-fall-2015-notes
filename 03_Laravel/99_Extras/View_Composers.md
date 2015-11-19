@@ -1,7 +1,7 @@
 
 Goal: Make `user` information available on all views.
 
-Done with a View Composer: http://laravel.com/docs/5.1/views#view-composers
+Done with a View Composers: http://laravel.com/docs/5.1/views#view-composers
 
 First, make the composer:
 ```bash
