@@ -20,7 +20,7 @@ In these notes, we'll start with the __One to Many__ relationship.
 ## Authors
 Continuing with the Foobooks example, we can expand on our database design to include an `authors` table.
 
-This addition introduces introduces the following relationship to our database:
+This addition introduces the following relationship to our database:
 
 __[One to Many](http://laravel.com/docs/eloquent#one-to-many)__
 
