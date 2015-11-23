@@ -73,7 +73,7 @@ Laravel ships with a default Middleware file for authentication which can be fou
 
 This is all managed by the `handle()` method:
 
-```
+```php
 # /app/Http/Middleware/Authenticate.php
 public function handle($request, Closure $next)
 {
@@ -94,7 +94,7 @@ We want to alter this method with two changes:
 2. Before doing the redirect, include a flash message so we can let the user know why they were redirected to the login page.
 
 The updated `handle()` method looks like this:
-```
+```php
 public function handle($request, Closure $next)
 {
     if ($this->auth->guest()) {
@@ -214,7 +214,7 @@ This method is simple enough: If the user is authorized, redirect them to `/home
 
 For our purposes, you should update the redirect to go to just `/`:
 
-```
+```php
 # /app/Http/Middleware/RedirectIfAuthenticated.php Line 38
 return redirect('/');
 ```
