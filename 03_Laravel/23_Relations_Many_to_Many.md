@@ -24,6 +24,7 @@ To accomplish what we want, we need to implement a *Many to Many* relationship s
     + Convention says the FK names should be associated the table name, singularized, and appended with `_id`.
     + Ex: The FK to the `books` table is `book_id` and the FK to the `tags` table is `tag_id`.
 
+
 <img src='http://making-the-internet.s3.amazonaws.com/laravel-many-to-many-diagram@2x.png' style='max-width:931px; width:100%' alt='Many to Many'>
 
 Before we create the pivot table, lets first get a Migration, Model and Seeder set up for __Tags__...
@@ -138,14 +139,14 @@ In the Book model add a `tags()` method, specifying that each book belongs to ma
 public function tags()
 {
     # With timetsamps() will ensure the pivot table has its created_at/updated_at fields automatically maintained
-    return $this->belongsToMany('\App\Tag')->withTimestamps();;
+    return $this->belongsToMany('\App\Tag')->withTimestamps();
 }
 ```
 
 And in the Tag model add a `books()` method, specifying that each tag belongs to many books:
 ```php
 public function books() {
-    return $this->belongsToMany('\App\Book')->withTimestamps();;
+    return $this->belongsToMany('\App\Book')->withTimestamps();
 }
 ```
 
@@ -158,7 +159,7 @@ $ php artisan make:seeder BookTagTableSeeder
 ```
 
 The `run()` method of this seeder should look like this:
-```
+```php
 public function run()
 {
 
