@@ -199,7 +199,7 @@ protected $routeMiddleware = [
 
 here we see that the `guest` Middleware is using `/app/Http/Middleware/RedirectIfAuthenticated.php` and in that file we see this `handle()` method:
 
-```
+```php
 public function handle($request, Closure $next)
 {
     if ($this->auth->check()) {
