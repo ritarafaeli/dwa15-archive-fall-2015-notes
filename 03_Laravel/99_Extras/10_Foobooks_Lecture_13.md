@@ -5,7 +5,7 @@ This should not be considered a stand-alone document; for full details please re
 
 ## Custom Model methods
 
-Last week in the `getEdit()`` method in `BookController.php`, we used this code to construct an array of authors to be used for the authors drop down:
+Last week in the `getEdit()` method in `BookController.php`, we used this code to construct an array of authors to be used for the authors drop down:
 
 ```php
 $authors = \App\Author::orderby('last_name','ASC')->get();
@@ -23,7 +23,7 @@ We need the same kind of dropdown on the *Add a Book* page.
 Rather than repeat the above code in the `getAdd()` method, let's extract the $authors_for_dropdown code into its own method in the Authors model:
 
 ```php
-# Author.php
+# New method in app/Author.php
 public function getAuthorsForDropdown() {
 
     $authors = $this->orderby('last_name','ASC')->get();
@@ -38,14 +38,14 @@ public function getAuthorsForDropdown() {
 }
 ```
 
-Then update `getEdit()`:
+Then update `getEdit()` in `BookController.php`:
 
 ```php
 $authorModel = new \App\Author();
 $authors_for_dropdown = $authorModel->getAuthorsForDropdown();
 ```
 
-Now let's use this method in `getCreate()``:
+Now use this method in `getCreate()` in `BookController.php`:
 
 ```php
 public function getCreate() {
@@ -57,7 +57,7 @@ public function getCreate() {
 }
 ```
 
-Then, `edit.blade.php` can use this data to create an authors dropdown:
+Then, `books/edit.blade.php` can also use this data to create an authors dropdown:
 
 ```html
 <div class='form-group'>
@@ -83,14 +83,38 @@ And set the `author_id` using the data from the dropdown in `$request`:
 $book->author_id = $request->author;
 ```
 
-Test and make sure that adding a new book with the author dropdown works.
+Test and make sure that the author dropdown works for adding a new book and editing an existing book.
 
 
 
 
 ## Improving the flow for guests that try to view auth-only pages
-Authenticate.php
-Line 41: \Session::flash('flash_message','You have to be logged in to access /'.$request->path());
+
+`/app/Http/Middleware/Authenticate.php` Line 41 before the redirect:
+```php
+\Session::flash('flash_message','You have to be logged in to access /'.$request->path());
+```
+
+A note on using Laravel facades:
+
+```php
+use Session;
+use Auth;
+
+// [...]
+
+function getExample() {
+
+    dump(\Auth::check());
+    dump(auth()->check());
+    dump(Auth::check());
+
+    dump(\Session::all());
+    dump(session()->all());
+    dump(Session::all());
+
+}
+```
 
 
 
@@ -98,7 +122,7 @@ Line 41: \Session::flash('flash_message','You have to be logged in to access /'.
 ## Making data available to all views
 Goal: Make `user` information available on all views.
 
-Done with a View Composers: <http://laravel.com/docs/5.1/views#view-composers>
+Can be done with View Composers: <http://laravel.com/docs/5.1/views#view-composers>
 
 First, make the composer:
 ```bash
@@ -110,14 +134,14 @@ Then update the resulting composer:
 # /app/Providers/ComposerServiceProvider.php
 public function boot()
 {
-    // Make the variable "user" available to all views
+    # Make the variable "user" available to all views
     \View::composer('*', function($view) {
         $view->with('user', \Auth::user());
     });
 }
 ```
 
-Then in any view you can use the `$user`, for example:
+Then in any view you can use `$user`, for example:
 ```html
 <li><a href='/logout'>Log out {{ $user->name }}</a></li>
 ```
@@ -129,18 +153,18 @@ Then in any view you can use the `$user`, for example:
 
 Couple different approaches:
 
-1. One to Many: Every book is connected to a single user
-2. Many to Many: Individual books aren't associated with any one user. Instead users can "Add book to your library", powered by a many to many relationship between books and users.
+1. *One to Many*: Every book is connected to a single user
+2. *Many to Many*: Individual books aren't associated with any one user. Instead users can favorite books, powered by a many to many relationship between books and users.
 
 Lets go with #1.
 
 
 ### Connect books and users
-To do this, we'll need a migration to update our `books` table to have the `user_id` fk. This is the same thing we did when connecting authors and books.
+To do this, we'll need a migration to update our `books` table to have the `user_id` foreign key. This is the same thing we did when connecting authors and books.
 
 Create the migration:
 ```bash
-php artisan make:migration connect_books_and_users
+$ php artisan make:migration connect_books_and_users
 ```
 
 Fill in the migration:
@@ -171,9 +195,10 @@ public function down()
 ```
 
 ### Books and authors Seeders
-Because we've created a FK between `books` and `authors` our Seeding order needs to be updated; currently it looks like this:
+Because we've created a foreign key between `books` and `authors` our Seeding order needs to be updated; currently it looks like this:
 
 ```php
+# database/seeds/DatabaseSeeder.php
 $this->call(AuthorsTableSeeder::class);
 $this->call(BooksTableSeeder::class);
 $this->call(TagsTableSeeder::class);
@@ -181,19 +206,19 @@ $this->call(BookTagTableSeeder::class);
 $this->call(UsersTableSeeder::class);
 ```
 
-We need to update it so that the `UsersTableSeeder` is invoked *before* the `BooksTableSeeder` (because the BooksTableSeeder will have a FK connecting to the `users` table).
+We need to update it so that the `UsersTableSeeder` is invoked *before* the `BooksTableSeeder` (because the `BooksTableSeeder` will have a foreign key connecting to the `users` table).
 
 New order:
 
 ```php
 $this->call(AuthorsTableSeeder::class);
-$this->call(UsersTableSeeder::class);
+$this->call(UsersTableSeeder::class); # <-- Happens before books seeder
 $this->call(BooksTableSeeder::class);
 $this->call(TagsTableSeeder::class);
 $this->call(BookTagTableSeeder::class);
 ```
 
-Finally, update the BooksTableSeeder so that each book is associated with an author.
+Finally, update the BooksTableSeeder so that each book is associated with a user.
 
 ```php
 $author_id = \App\Author::where('last_name','=','Fitzgerald')->pluck('id');
@@ -209,7 +234,8 @@ DB::table('books')->insert([
 ]);
 ```
 
-Make the above change for all three books.
+Make the above change for all three books. In our example, we're giving all 3 seeded books to user id 1 (`jill@harvard.edu`).
+
 
 ### Update models
 Next, update the `Book` and `User` model so they're aware of this new relationship.
@@ -228,17 +254,19 @@ public function book() {
 }
 ```
 
+
+
+
+### Only see your books
 Setup complete! Now lets make it so that when you're logged in you only see *your* books.
 
-
-### Only see *your* books
 Update `BookController.php` `getIndex()` so that the query includes a user_id filter:
 
 ```php
 public function getIndex(Request $request) {
 
-    // Get all the books "owned" by the current logged in users
-    // Sort in descending order by id
+    # Get all the books "owned" by the current logged in users
+    # Sort in descending order by id
     $books = \App\Book::where('user_id','=',\Auth::id())->orderBy('id','DESC')->get();
 
     return view('books.index')->with('books',$books);
@@ -247,11 +275,11 @@ public function getIndex(Request $request) {
 
 Test it out.
 How many books does Jill see?
-Update the `books` table to reduce the number of books that Jill sees.
+Update the `books` table to reduce the number of books that Jill sees and test it again.
 
 How many books does Jamal see? Should be none by default.
 
-Update `books/index.blade.php` to account for this &ldquo;blank slate&rdquo; case:
+Update `/resources/views/books/index.blade.php` to account for this &ldquo;blank slate&rdquo; case:
 
 ```php
 @if(sizeof($books) == 0)
@@ -271,7 +299,7 @@ Update `books/index.blade.php` to account for this &ldquo;blank slate&rdquo; cas
 Update `BookController.php` `postCreate()`:
 
 ```php
-// Code here to enter book into the database
+# Prepare to enter new book into the database
 $book = new \App\Book();
 $book->title = $request->title;
 $book->author_id = $request->author;
@@ -286,7 +314,7 @@ Now that books are associated with specific users, it doesn't make sense anymore
 
 So, let's create a `WelcomeController` with a `getIndex()` method:
 
-```
+```php
 <?php
 # /app/Http/Controllers/WelcomeController.php
 
@@ -297,7 +325,16 @@ use Illuminate\Http\Request;
 
 class WelcomeController extends Controller {
 
+    /**
+    * Responds to requests to GET /
+    */
     public function getIndex() {
+
+        # Logged in users should not see the welcome page, send them to the books index instead.
+        if(\Auth::check()) {
+            return redirect()->to('/books');
+        }
+
         return view('welcome.index');
     }
 
@@ -323,14 +360,11 @@ That `getIndex()` method should load this view:
 ```
 
 And then we'll update our routes to look like this:
-```
-// Guests who visit "/" get a welcome page
+
+```php
 Route::get('/', 'WelcomeController@getIndex');
 
 Route::group(['middleware' => 'auth'], function() {
-
-    // Logged in users who visit "/" get a listing of books
-    Route::get('/', 'BookController@getIndex');
 
     Route::get('/books/create', 'BookController@getCreate');
     Route::post('/books/create', 'BookController@postCreate');
@@ -345,9 +379,9 @@ Route::group(['middleware' => 'auth'], function() {
 ```
 
 Test it out:
-+ While logged out, visit `http://localhost/`; you should see a welcome page.
-+ While logged in, visit `http://localhost/`; you should see the book listing page.
-+ While logged out, try and visit `http://localhost/books`; you should be directed to the login page.
++ While logged out, visit `http://localhost/`&mdash; you should see a welcome page.
++ While logged in, visit `http://localhost/`&mdash; you should see the book listing page.
++ While logged out, try and visit `http://localhost/books`&mdash; you should be directed to the login page.
 
 
 
@@ -359,12 +393,36 @@ We need a way to associate tags with books (either from the *Edit Book* or *Crea
 
 For authors, this was done with a dropdown which worked because each book can have only *one* author.
 
-Each book can have *many* tags, though, so a dropdown won't do. Instead, lets show all possible tags with a checkbox.
+Each book can have *many* tags, though, so a dropdown won't do. Instead, lets show all possible tags with checkboxes.
+
+<img src='http://making-the-internet.s3.amazonaws.com/laravel-foobooks-tag-checkboxes@2x.png' style='max-width:357px; width:100%' alt='Tags checkboxes'>
 
 To accomplish this, we'll need to gather the following data:
 
 1. All the possible tags
 2. All the tags associated with the book we're looking at.
+
+
+First, a `getTagsForCheckboxes()` method in the Tag model:
+
+```php
+# Tag.php
+public function getTagsForCheckboxes() {
+
+    $tags = $this->orderBy('name','ASC')->get();
+
+    $tagsForCheckboxes = [];
+
+    foreach($tags as $tag) {
+        $tagsForCheckboxes[$tag['id']] = $tag;
+    }
+
+    return $tagsForCheckboxes;
+
+}
+```
+
+Then update `BookController.php` `getEdit()`:
 
 ```php
 # BookController.php
@@ -387,6 +445,7 @@ public function getEdit($id = null) {
     foreach($book->tags as $tag) {
         $tags_for_this_book[] = $tag->name;
     }
+    # Results in an array like this: $tags_for_this_book['novel','fiction','classic'];
 
     return view('books.edit')
         ->with([
@@ -400,7 +459,7 @@ public function getEdit($id = null) {
 ```
 
 ```php
-# edit.blade.php
+# /resources/views/books/edit.blade.php
 
 [...]
 
@@ -415,22 +474,6 @@ public function getEdit($id = null) {
 [...]
 ```
 
-```php
-# Tag.php
-public function getTagsForCheckboxes() {
-
-    $tags = $this->orderBy('name','ASC')->get();
-
-    $tagsForCheckboxes = [];
-
-    foreach($tags as $tag) {
-        $tagsForCheckboxes[$tag['id']] = $tag;
-    }
-
-    return $tagsForCheckboxes;
-
-}
-```
 
 ```php
 # BookController.php
@@ -453,8 +496,10 @@ public function postEdit(Request $request) {
 }
 ```
 
-## Deleting Books
 
+
+
+## Deleting Books
 When deleting a book, you have to first delete any relationships to tags (that is, rows in the `book_tag` table).
 
 This can be done via an [Event/Listener](http://laravel.com/docs/5.1/events) but we'll take a shortcut in the interest of time and just embed it in our deletion methods.
@@ -478,6 +523,7 @@ public function getConfirmDelete($book_id) {
 
 public function getDoDelete($book_id) {
 
+    # Get the book to be deleted
     $book = \App\Book::find($book_id);
 
     if(is_null($book)) {
@@ -485,14 +531,16 @@ public function getDoDelete($book_id) {
         return redirect('\books');
     }
 
+    # First remove any tags associated with this book
     if($book->tags()) {
         $book->tags()->detach();
     }
 
+    # Then delete the book
     $book->delete();
 
+    # Done
     \Session::flash('flash_message',$book->title.' was deleted.');
-
     return redirect('/books');
 
 }
