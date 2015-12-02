@@ -1,7 +1,6 @@
-The following is a very rough outline of the modifications I made to foobooks during Lecture 12.
+The following is a very rough outline of the modifications I'll make to foobooks during Lecture 13.
 
-This should not be considered a stand-alone document; for full details please refer to the lecture video.
-
+This should not be considered a stand-alone document; for full details please refer to the lecture video and the foobooks code source.
 
 
 
