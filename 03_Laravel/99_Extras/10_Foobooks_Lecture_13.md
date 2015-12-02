@@ -3,8 +3,9 @@ The following is a very rough outline of the modifications I'll make to foobooks
 This should not be considered a stand-alone document; for full details please refer to the lecture video and the foobooks code source.
 
 
-## Custom Model methods
 
+
+## Custom Model methods
 Last week in the `getEdit()` method in `BookController.php`, we used this code to construct an array of authors to be used for the authors drop down:
 
 ```php
@@ -95,7 +96,10 @@ Test and make sure that the author dropdown works for adding a new book and edit
 \Session::flash('flash_message','You have to be logged in to access /'.$request->path());
 ```
 
-A note on using Laravel facades:
+
+
+
+## A note on using Laravel facades
 
 ```php
 use Session;
@@ -119,7 +123,7 @@ function getExample() {
 
 
 
-## Making data available to all views
+## Making data available to all views with Composers
 Goal: Make `user` information available on all views.
 
 Can be done with View Composers: <http://laravel.com/docs/5.1/views#view-composers>
@@ -141,6 +145,14 @@ public function boot()
 }
 ```
 
+Register this Service Provider in `config/app.php`:
+```php
+'providers' => [
+    // [...]
+    'App\Providers\ComposerServiceProvider'
+]
+```
+
 Then in any view you can use `$user`, for example:
 ```html
 <li><a href='/logout'>Log out {{ $user->name }}</a></li>
@@ -150,13 +162,14 @@ Then in any view you can use `$user`, for example:
 
 
 ## Integrating your existing data and users/auth
-
 Couple different approaches:
 
 1. *One to Many*: Every book is connected to a single user
 2. *Many to Many*: Individual books aren't associated with any one user. Instead users can favorite books, powered by a many to many relationship between books and users.
 
 Lets go with #1.
+
+
 
 
 ### Connect books and users
@@ -194,7 +207,10 @@ public function down()
 }
 ```
 
-### Books and authors Seeders
+
+
+
+### Update seeders
 Because we've created a foreign key between `books` and `authors` our Seeding order needs to be updated; currently it looks like this:
 
 ```php
@@ -237,6 +253,8 @@ DB::table('books')->insert([
 Make the above change for all three books. In our example, we're giving all 3 seeded books to user id 1 (`jill@harvard.edu`).
 
 
+
+
 ### Update models
 Next, update the `Book` and `User` model so they're aware of this new relationship.
 
@@ -257,8 +275,8 @@ public function book() {
 
 
 
-### Only see your books
-Setup complete! Now lets make it so that when you're logged in you only see *your* books.
+### Show the logged in user only their books
+Setup complete! Now lets make it so that when a user is logged in they only see *their* books.
 
 Update `BookController.php` `getIndex()` so that the query includes a user_id filter:
 
@@ -295,7 +313,10 @@ Update `/resources/views/books/index.blade.php` to account for this &ldquo;blank
 @endif
 ```
 
-### Associating new books with the logged in user
+
+
+
+### Associating books with the logged in user
 Update `BookController.php` `postCreate()`:
 
 ```php
@@ -308,6 +329,9 @@ $book->cover = $request->cover;
 $book->published = $request->published;
 $book->purchase_link = $request->purchase_link;
 ```
+
+Once a book is created it is tied to that user; because of this there's no need to do anything with the *Edit Book* in regards to user associations.
+
 
 ### Route adjustments for guests vs. users
 Now that books are associated with specific users, it doesn't make sense anymore that guest would be able to see an index of all the books. Instead, guests should see some sort of Welcome page.
@@ -466,7 +490,7 @@ public function getEdit($id = null) {
 <div class='form-group'>
     <label for='tags'>Tags</label>
     @foreach($tags_for_checkbox as $tag_id => $tag)
-        <? $checked = (in_array($tag['name'],$tags_for_this_book)) ? 'CHECKED' : '' ?>
+        <?php $checked = (in_array($tag['name'],$tags_for_this_book)) ? 'CHECKED' : '' ?>
         <input {{ $checked }} type='checkbox' name='tags[]' value='{{$tag_id}}'> {{ $tag['name'] }}<br>
     @endforeach
 </div>
