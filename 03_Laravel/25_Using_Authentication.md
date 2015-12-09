@@ -219,7 +219,7 @@ For our purposes, you should update the redirect to go to just `/`:
 return redirect('/');
 ```
 
-After saving this change, you can test it's working logging out (`http://localhost/logout`) then attempting to visit `http://localhost/login` or `http://localhost/register`.
+After saving this change, you can test if it's working by logging in (`http://localhost/login`) and then attempting to visit `http://localhost/login` or `http://localhost/register`.
 
 If everything is working, it should redirect you to `http://localhost/`.
 
