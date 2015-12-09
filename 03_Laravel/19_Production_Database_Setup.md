@@ -44,7 +44,7 @@ If all goes well, you should see some info about MySQL, followed by the `mysql> 
 
 
 
-Run the `SHOW DATABSES;` command to see what databases exist on your server (there should be 3 default ones). Don't forget that every SQL Command has to end with a semi-colon.
+Run the `SHOW DATABASES;` command to see what databases exist on your server (there should be 3 default ones). Don't forget that every SQL Command has to end with a semi-colon.
 
 ```bash
 mysql> SHOW DATABASES;
