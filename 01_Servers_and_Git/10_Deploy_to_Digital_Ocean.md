@@ -133,7 +133,10 @@ While SSH'd into your Digital Ocean server, run this command to install git:
 ```bash
 $ sudo apt-get install git
 ```
-
+If you get "Unable to fetch some archives", try running the following:
+```bash
+$ sudo apt-get update
+```
 Follow any given instructions to complete the git installation. When it's done, confirm git is installed by checking the version:
 
 ```bash
